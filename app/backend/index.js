@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import routesAPI from "./routes/index.js";
 import { dbConnection } from "./config/database.js";
 import { logErrors, isBoomError, errorHandler } from "./middlewares/errorHandler.js";
 
@@ -17,11 +18,13 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+
+dbConnection();
+routesAPI(app);
 app.use(logErrors);
 app.use(isBoomError);
 app.use(errorHandler);
 
-dbConnection();
 
 app.listen(port, () => {
   console.log(`Server running on http://localhost:${port}`);
