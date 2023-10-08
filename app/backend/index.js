@@ -2,11 +2,13 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { dbConnection } from "./config/database.js";
+import { logErrors, isBoomError, errorHandler } from "./middlewares/errorHandler.js";
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+// middlewares
 app.use(express.json());
 app.use(
   cors({
@@ -15,6 +17,9 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
+app.use(logErrors);
+app.use(isBoomError);
+app.use(errorHandler);
 
 dbConnection();
 
