@@ -1,0 +1,592 @@
+openapi: 3.0.3
+info:
+  title: Kairo Media PM
+  description: Proyecto de desarrollo de un Aplicativo Web que pueda mostrar el panel de gestionamiento de proyectos y sus módulos necesarios para la empresa “Kario Media”, la cual realiza licitaciones públicas y privadas de varios nichos de negocio.
+  version: 1.0.0
+servers:
+  - url: http://localhost:8000/
+tags:
+  - name: Area
+  - name: Meta
+  - name: Rol
+  - name: Usuario
+
+paths:
+  #Area
+  /api/areas:
+    get:
+      tags:
+        - Area
+      summary: Muestra las areas Registradas
+      responses:
+        200:
+          description: (OK) lista de Areas obtenida con exito
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Area
+      summary: Inserta la informacion de una nueva area a trabajar..
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AreaPost"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  /api/{idArea}:
+    get:
+      tags:
+        - Area
+      summary: Obtiene la informacion unica de cada una de las colecciones encontradas en la base de datos
+      parameters:
+        - name: idArea
+          in: path
+          description: Se obtiene la informacion de una Area solicitada
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    patch:
+      tags:
+        - Area
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idArea
+          in: path
+          description: Actualiza la informacion de la respectiva Area
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+      requestBody:
+        description: Añade los datos de los siguientes campos a modificar
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AreaPost"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    delete:
+      tags:
+        - Area
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idArea
+          in: path
+          description: Se elimina el Area de la base de datos.
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+
+      responses:
+        200:
+          description: (OK) El cliente fue borrado exitosamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  #Metas
+  /api/metas:
+    get:
+      tags:
+        - Meta
+      summary: Muestra las Metas Registradas
+      responses:
+        200:
+          description: (OK) lista de Metas obtenida con exito
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Meta
+      summary: Inserta la informacion de una nueva Meta a trabajar..
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MetaPost"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  /api/{idMeta}:
+    get:
+      tags:
+        - Meta
+      summary: Obtiene la informacion unica de cada una de las colecciones encontradas en la base de datos
+      parameters:
+        - name: idMeta
+          in: path
+          description: Se obtiene la informacion de una Meta solicitada
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    patch:
+      tags:
+        - Meta
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idMeta
+          in: path
+          description: Actualiza la informacion de la respectiva Meta
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+      requestBody:
+        description: Añade los datos de los siguientes campos a modificar
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MetaPost"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    delete:
+      tags:
+        - Meta
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idMeta
+          in: path
+          description: Se elimina el Meta de la base de datos.
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+
+      responses:
+        200:
+          description: (OK) El cliente fue borrado exitosamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  #Roles
+  /api/roles:
+    get:
+      tags:
+        - Rol
+      summary: Muestra las Rols Registradas
+      responses:
+        200:
+          description: (OK) lista de Rols obtenida con exito
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Rol
+      summary: Inserta la informacion de una nueva Rol a trabajar..
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RolPost"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  /api/{idRol}:
+    get:
+      tags:
+        - Rol
+      summary: Obtiene la informacion unica de cada una de las colecciones encontradas en la base de datos
+      parameters:
+        - name: idRol
+          in: path
+          description: Se obtiene la informacion de una Rol solicitada
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    patch:
+      tags:
+        - Rol
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idRol
+          in: path
+          description: Actualiza la informacion de la respectiva Rol
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+      requestBody:
+        description: Añade los datos de los siguientes campos a modificar
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RolPost"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    delete:
+      tags:
+        - Rol
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idRol
+          in: path
+          description: Se elimina el Rol de la base de datos.
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+
+      responses:
+        200:
+          description: (OK) El cliente fue borrado exitosamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  #Usuarios
+  /api/usuarios:
+    get:
+      tags:
+        - Usuario
+      summary: Muestra las Usuarios Registradas
+      responses:
+        200:
+          description: (OK) lista de Usuarios obtenida con exito
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    post:
+      tags:
+        - Usuario
+      summary: Inserta la informacion de una nueva Usuario a trabajar..
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UsuarioPost"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  /api/{idUsuario}:
+    get:
+      tags:
+        - Usuario
+      summary: Obtiene la informacion unica de cada una de las colecciones encontradas en la base de datos
+      parameters:
+        - name: idUsuario
+          in: path
+          description: Se obtiene la informacion de una Usuario solicitada
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    patch:
+      tags:
+        - Usuario
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idUsuario
+          in: path
+          description: Actualiza la informacion de la respectiva Usuario
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+      requestBody:
+        description: Añade los datos de los siguientes campos a modificar
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UsuarioPost"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+    delete:
+      tags:
+        - Usuario
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idUsuario
+          in: path
+          description: Se elimina el Usuario de la base de datos.
+          required: true
+          schema:
+            type: string
+            format: objectId
+            example: 605c4d36a2cfde067c6c266d
+            minLength: 24
+            maxLength: 24
+
+      responses:
+        200:
+          description: (OK) El cliente fue borrado exitosamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  #Meta
+
+components:
+  responses:
+    NotFound:
+      description: (NotFound) no se encontro la informacion
+    BadRequest:
+      description: (BadRequest) Los datos enviados son incorrectos o hay datos obligatorios no enviados
+    ServerError:
+      description: Error en el servidor
+
+  schemas:
+    AreaPost:
+      type: object
+      properties:
+        nombre:
+          type: string
+          example: Marketing
+
+    MetaPost:
+      type: object
+      properties:
+        nombre:
+          type: string
+          uniqueItems: true
+          example: Marketing
+        descripcion:
+          type: string
+        dificultad:
+          type: string
+          enum:
+            - Alta #Dificultad Seniooor
+            - Media #Dificultad Intermedia
+            - Baja #Dificultad muy facil, para siempre decir "Esto esta todo mal hecho ¡Monton de Juniors 💦"
+          example: [Alta, Media, Baja]
+        fechaInicio: 
+          type: string
+          format: date
+          example: 1990-01-01
+        fechaFinal:
+          type: string
+          format: date
+          example: 1990-01-01
+        metodologia:
+          type: string
+        area: 
+          type: string
+          format: objectId
+          example: 05c4d36a2cfde067c6c266d
+          maxLength: 24
+          minLength: 24
+        tareas: 
+          type: array
+          properties:
+            titulo: 
+              type: string
+            instrucciones:
+              type: string
+            tiempoHoras: 
+              type: number
+              minimum: 1
+            integrantes:
+              type: array
+              properties:
+                usuario:
+                  type: string
+                  format: objectId
+                  example: 05c4d36a2cfde067c6c266d
+                  maxLength: 24
+                  minLength: 24
+
+    RolPost:
+      type: object
+      properties:
+        nombre:
+          type: string
+          uniqueItems: true        
+
+    UsuarioPost:
+      type: object
+      properties:
+        nombre:
+          type: string
+          uniqueItems: true
+        password:
+          type: string
+          format: password
+          minLength: 6
+          maxLength: 19
+        email:
+          type: string
+          format: email
+        estado:
+          type: boolean
+          default: true
+        rol: 
+          type: array
+          properties:
+            rol:
+              type: string
+              format: uppercase
+              example: USER

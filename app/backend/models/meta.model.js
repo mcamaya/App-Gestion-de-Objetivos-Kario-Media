@@ -35,10 +35,6 @@ const MetaSchema = new Schema(
       required: true,
       ref: "areas",
     },
-    integrantes: [{
-      type: Schema.Types.ObjectId,
-      ref: 'usuarios'
-    }],
     tareas: [
       {
         titulo: {
@@ -50,6 +46,14 @@ const MetaSchema = new Schema(
         tiempoHoras: {
           type: Number,
         },
+        check: {
+          type: Boolean,
+          default: false
+        },
+        integrantes: [{
+          type: Schema.Types.ObjectId,
+          ref: 'usuarios'
+        }]
       },
     ],
     cumplimiento: {

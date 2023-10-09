@@ -7,11 +7,23 @@ const router = Router();
 
 router.get("/", service.getMetas);
 router.post(
+  "/add-tasks/:id",
+  [
+    validateSchema(schemas.getMetasSchema, "params"),
+    validateSchema(schemas.añadirTareas, "body"),
+  ],
+  service.añadirTareas
+);
+router.post(
   "/",
   validateSchema(schemas.createMetasSchema, "body"),
   service.createMeta
 );
 
-router.patch('/:id', service.editarMeta);
+router.patch(
+  "/:id",
+  validateSchema(schemas.updateMetasSchema, "body"),
+  service.editarMeta
+);
 
 export default router;
