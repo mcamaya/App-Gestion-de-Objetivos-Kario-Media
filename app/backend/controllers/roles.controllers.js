@@ -1,31 +1,31 @@
 import { ObjectId } from "mongodb";
 import { db } from "../config/mongoClient.js";
-import Area from "../models/area.model.js";
+import Role from "../models/rol.model.js";
 
-const areas = db.collection("areas");
+const roles = db.collection("roles");
 
-export const getAreas = async (req, res) => {
+export const getRoles = async (req, res) => {
   try {
-    const data = await areas.find({estado: true}).toArray();
+    const data = await roles.find({estado: true}).toArray();
     res.status(200).json(data);
   } catch (err) {
     next(err);
   }
 };
 
-export const getOneArea = async (req, res, next) => {
+export const getOneRole = async (req, res, next) => {
   try {
     const oid = new ObjectId(req.params.id);
-    const data = await areas.find({ _id: oid }).toArray();
+    const data = await roles.find({ _id: oid }).toArray();
     res.status(200).json(data);
   } catch (err) {
     next(err);
   }
 };
 
-export const createArea = async (req, res, next) => {
+export const createRole = async (req, res, next) => {
   try {
-    const newData = new Area(req.body);
+    const newData = new Role(req.body);
     await newData.save();
     res.status(200).json(newData);
   } catch (err) {
@@ -33,9 +33,9 @@ export const createArea = async (req, res, next) => {
   }
 };
 
-export const updateArea = async (req, res, next) => {
+export const updateRole = async (req, res, next) => {
   try {
-    const modified = await Area.findOneAndUpdate(
+    const modified = await Role.findOneAndUpdate(
       { _id: req.params.id },
       req.body,
       { new: true }
@@ -46,9 +46,9 @@ export const updateArea = async (req, res, next) => {
   }
 };
 
-export const deleteArea = async (req, res, next) => {
+export const deleteRole = async (req, res, next) => {
   try {
-    const modified = await Area.findOneAndUpdate(
+    const modified = await Role.findOneAndUpdate(
       { _id: req.params.id },
       { estado: false },
       { new: true }
