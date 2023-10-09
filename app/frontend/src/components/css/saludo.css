@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    position: relative;
+}
+
+.saludo-loged{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-color: white;
+    width: 936px;
+    height: 549px;
+    border-radius: 67px;
+}
+  
+.logo-login img{
+    margin-top: 20px;
+    height: 120px;
+    width: 100px;
+}
