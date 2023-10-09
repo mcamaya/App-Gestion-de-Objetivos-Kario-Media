@@ -6,6 +6,17 @@ import * as service from "../controllers/metas.controllers.js";
 const router = Router();
 
 router.get("/", service.getMetas);
+router.get(
+  "/porcentaje/:id",
+  validateSchema(schemas.getMetasSchema, "params"),
+  service.getPorcentajeCheck
+);
+router.get(
+  "/:id",
+  validateSchema(schemas.getMetasSchema, "params"),
+  service.getOneMeta
+);
+
 router.post(
   "/add-tasks/:id",
   [
@@ -14,6 +25,7 @@ router.post(
   ],
   service.añadirTareas
 );
+
 router.post(
   "/",
   validateSchema(schemas.createMetasSchema, "body"),
