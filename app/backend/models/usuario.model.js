@@ -28,6 +28,18 @@ const UsuarioSchema = new Schema({
     required: true,
   },
   imagen: String,
+  notificacion:[
+    {
+      mensaje: {
+        type: String,
+        required: false,
+      },
+      estado:{
+        type: Boolean,
+        required: false
+      }
+    }
+  ]
 }, {
   versionKey: false
 });
