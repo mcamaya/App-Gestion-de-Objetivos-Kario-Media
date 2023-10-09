@@ -1,5 +1,4 @@
 import boom from "@hapi/boom";
-import bcryptjs from "bcryptjs";
 import { ObjectId } from "mongodb";
 import { db } from "../config/mongoClient.js";
 import Usuario from "../models/usuario.model.js";
@@ -9,6 +8,17 @@ const usuarios = db.collection("usuarios");
 export const getUsuarios = async (req, res, next) => {
   try {
     const data = await usuarios.find({ estado: true }).toArray();
+    res.status(200).json(data);
+  } catch (err) {
+    next(err);
+  }
+};
+
+export const getNoAdmins = async (req, res, next) => {
+  try {
+    const data = await usuarios
+      .aggregate([{ $match: { rol: { $nin: ["ADMIN"] } } }])
+      .toArray();
     res.status(200).json(data);
   } catch (err) {
     next(err);
@@ -29,7 +39,7 @@ export const getOneUsuario = async (req, res, next) => {
 
 export const createUsuario = async (req, res, next) => {
   try {
-    const { password, email, ...rest } = req.body;
+    const { password, email, ...remaining } = req.body;
 
     const existeEmail = await usuarios.findOne({ email });
     if (existeEmail)
@@ -38,7 +48,7 @@ export const createUsuario = async (req, res, next) => {
     const newUsuario = await new Usuario({
       email,
       password: Usuario.encryptPassword(password),
-      ...rest,
+      ...remaining,
     });
 
     newUsuario.save();
@@ -58,13 +68,17 @@ export const updateUsuario = async (req, res, next) => {
     if (!existeUser)
       throw boom.notFound("Usuario ID no encontrado en la base de datos");
 
-    const { password, ...rest } = req.body;
+    const { password, ...remaining } = req.body;
     if (password) {
       let newPassword = Usuario.encryptPassword(password);
-      rest["password"] = newPassword;
+      remaining["password"] = newPassword;
     }
 
-    const data = await usuarios.updateOne({ _id: oid }, { $set: { ...rest } });
+    const data = await Usuario.findOneAndUpdate(
+      { _id: req.params.id },
+      { ...remaining },
+      { new: true }
+    );
 
     res.status(200).json({
       message: "Usuario actualizado con éxito",
