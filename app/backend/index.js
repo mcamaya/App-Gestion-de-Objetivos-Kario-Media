@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import routesAPI from "./routes/index.js";
-import { dbConnection } from "./config/database.js";
+import { mongoClientConnection } from "./config/mongoClient.js";
+import { mongooseConnection } from "./config/mongoose.js";
 import { logErrors, isBoomError, errorHandler } from "./middlewares/errorHandler.js";
 
 dotenv.config();
@@ -19,7 +20,8 @@ app.use(
   })
 );
 
-dbConnection();
+mongoClientConnection();
+mongooseConnection();
 routesAPI(app);
 app.use(logErrors);
 app.use(isBoomError);
