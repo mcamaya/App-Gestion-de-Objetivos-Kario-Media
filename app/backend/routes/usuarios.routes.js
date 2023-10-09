@@ -5,6 +5,7 @@ import * as schemas from "../schemas/usuario.schema.js";
 const router = Router();
 
 router.get("/", service.getUsuarios);
+router.get('/no-admin', service.getNoAdmins);
 router.get(
   "/:id",
   validateSchema(schemas.getUsuarioSchema, "params"),

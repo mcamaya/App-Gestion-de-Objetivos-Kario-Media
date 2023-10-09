@@ -6,6 +6,7 @@ const MetaSchema = new Schema(
       type: String,
       required: true,
       trim: true,
+      unique: true
     },
     descripcion: {
       type: String,
@@ -34,10 +35,10 @@ const MetaSchema = new Schema(
       required: true,
       ref: "areas",
     },
-    integrantes: {
-      type: Array,
-      default: [],
-    },
+    integrantes: [{
+      type: Schema.Types.ObjectId,
+      ref: 'usuarios'
+    }],
     tareas: [
       {
         titulo: {
