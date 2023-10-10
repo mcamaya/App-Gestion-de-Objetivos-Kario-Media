@@ -29,7 +29,7 @@ export default function Navbar(){
                     <a class="nav-link active grup-a" aria-current="page" href="#"><img className="nav-logo" src={eliminar} alt="" />Eliminar</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-item" href="#"><img src={logo} className="logo" alt="" srcset="" /></a>
+                    <a class="nav-item" href="#"><img src={logo} className="logo-nav" alt="" srcset="" /></a>
                     </li>
                     <li class="nav-item">
                     <a class="nav-link active grup-a" aria-current="page" href="#"><img className="nav-logo" src={repor} alt="" />Eliminar</a>
