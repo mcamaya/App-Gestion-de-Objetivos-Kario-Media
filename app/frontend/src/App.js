@@ -5,8 +5,6 @@ import Login from './components/login.jsx';
 import Saludo from './components/saludo.jsx';
 import Navbar from './components/navbar.jsx';
 
-
-
 function App() {
   return (
     <Router>
