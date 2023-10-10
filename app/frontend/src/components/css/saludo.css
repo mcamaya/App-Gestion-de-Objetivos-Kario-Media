@@ -6,6 +6,19 @@
     position: relative;
 }
 
+.container #img-animated {
+    width: 197px;
+    height: 176px;
+    opacity: 0;
+    animation: animate-logo 2s linear forwards 2s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    user-select: none;
+  }
+
 .saludo-loged{
     display: flex;
     align-items: center;
@@ -14,10 +27,46 @@
     width: 936px;
     height: 549px;
     border-radius: 67px;
+    animation: welcome-animation 1s linear, fade-out .2s linear 2s forwards;
+    pointer-events: none;
+    user-select: none;
 }
-  
+
+.user-loged{
+  width: 118px;
+  height: 118px;
+  border-radius: 96px;
+  object-fit: cover;
+  overflow: hidden;
+}
+
+.user-loged img{
+  width: 118px;
+  height: 118px;
+}
+
 .logo-login img{
     margin-top: 20px;
     height: 120px;
     width: 100px;
 }
+
+@keyframes welcome-animation {
+    0%{
+        opacity: 0;
+    }
+
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+  
+    100% {
+      opacity: 0;
+    }
+  }

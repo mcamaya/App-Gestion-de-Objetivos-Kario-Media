@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, useLocation, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import './css/login.css'
 import logo from '../assets/img/kario.png';
 import logo2 from '../assets/img/kario-media.png';
@@ -8,7 +8,7 @@ export default function Login(){
     return (
         <div className="logo">
             <img id="img-animated" src={logo} alt="..."/>
-            <div className="login">
+            <div className="login" >
             <div className="header-login">
                 <div className="logo-login">
                 <img src={logo2} alt="..."/>
@@ -31,7 +31,7 @@ export default function Login(){
                 </div>
             </div>
             <div className="button-login">
-                <Link to="/saludo">
+                <Link to="/welcome">
                     <button>Ingresar al panel</button>
                 </Link>
             </div>
