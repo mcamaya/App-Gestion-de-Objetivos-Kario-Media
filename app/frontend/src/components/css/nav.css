@@ -1,19 +1,30 @@
-
-
-.logo-nav{
-    width: 50px;
-    height: 50px;
-    margin: 0 5rem;
+.logo-nav {
+  width: 40px;
+  height: 40px;
 }
 
-
-.nav-logo{
-    width: 30px;
-    height: 30px;
-  
+.nav-logo {
+  width: 30px;
+  height: 30px;
 }
 
+.grup-a {
+  margin: 0 2em;
+}
 
-.grup-a{
-   margin: 0 5rem;
+.ajustes-nav {
+  width: 20px;
+  height: 20px;
+}
+
+.imagen-nav {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+@media (min-width: 1920px) {
+  .grup-a {
+    margin: 0 4em;
+  }
 }
