@@ -10,7 +10,7 @@
     width: 197px;
     height: 176px;
     opacity: 0;
-    /* animation: animate-logo 2s linear forwards 2s; */
+    animation: animate-logo 2s linear forwards 2s;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -28,7 +28,7 @@
     width: 68%;
     height: 51%;
     border-radius: 67px;
-    /* animation: welcome-animation 1s linear, fade-out .2s linear 2s forwards; */
+    animation: welcome-animation 1s linear, fade-out .2s linear 2s forwards;
     pointer-events: none;
     user-select: none;
     overflow: hidden;

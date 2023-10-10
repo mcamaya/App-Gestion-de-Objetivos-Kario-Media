@@ -6,7 +6,7 @@ import logo from '../assets/img/kario.png';
 import userImage from '../assets/img/user-image.jpg';
 
 export default function Saludo(){
-    /* const history = useHistory();
+    const history = useHistory();
 
     useEffect(()=>{
         const timer = setTimeout(()=>{
@@ -14,7 +14,7 @@ export default function Saludo(){
         }, 4000)
 
         return () => clearTimeout(timer);
-    }, [history]) */
+    }, [history])
 
     return (
         <div className='container'>
