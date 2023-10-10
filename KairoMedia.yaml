@@ -13,11 +13,13 @@ tags:
 
 paths:
   #Area
-  /api/areas:
+  /api/v1/areas:
     get:
       tags:
         - Area
       summary: Muestra las areas Registradas
+      parameters:
+        - $ref: '#/components/parameters/jwtUser'
       responses:
         200:
           description: (OK) lista de Areas obtenida con exito
@@ -32,6 +34,8 @@ paths:
       tags:
         - Area
       summary: Inserta la informacion de una nueva area a trabajar..
+      parameters:
+        - $ref: '#/components/parameters/jwtAdmin'
       requestBody:
         content:
           application/json:
@@ -47,7 +51,7 @@ paths:
         500:
           $ref: "#/components/responses/ServerError"
 
-  /api/{idArea}:
+  /api/v1/areas/{idArea}:
     get:
       tags:
         - Area
@@ -63,6 +67,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtUser'
       responses:
         200:
           description: (OK) la informacion se guardo correctamente
@@ -88,6 +93,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtAdmin'
       requestBody:
         description: Añade los datos de los siguientes campos a modificar
         required: true
@@ -120,6 +126,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtAdmin'
 
       responses:
         200:
@@ -132,11 +139,13 @@ paths:
           $ref: "#/components/responses/ServerError"
 
   #Metas
-  /api/metas:
+  /api/v1/metas:
     get:
       tags:
         - Meta
       summary: Muestra las Metas Registradas
+      parameters:
+        - $ref: '#/components/parameters/jwtUser'
       responses:
         200:
           description: (OK) lista de Metas obtenida con exito
@@ -151,6 +160,8 @@ paths:
       tags:
         - Meta
       summary: Inserta la informacion de una nueva Meta a trabajar..
+      parameters:
+        - $ref: '#/components/parameters/jwtAdmin'
       requestBody:
         content:
           application/json:
@@ -166,7 +177,7 @@ paths:
         500:
           $ref: "#/components/responses/ServerError"
 
-  /api/{idMeta}:
+  /api/v1/metas/{idMeta}:
     get:
       tags:
         - Meta
@@ -182,6 +193,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtUser'
       responses:
         200:
           description: (OK) la informacion se guardo correctamente
@@ -207,6 +219,8 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtAdmin'
+
       requestBody:
         description: Añade los datos de los siguientes campos a modificar
         required: true
@@ -239,6 +253,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtAdmin'
 
       responses:
         200:
@@ -251,11 +266,13 @@ paths:
           $ref: "#/components/responses/ServerError"
 
   #Roles
-  /api/roles:
+  /api/v1/roles:
     get:
       tags:
         - Rol
       summary: Muestra las Rols Registradas
+      parameters:
+        - $ref: '#/components/parameters/jwtUser'
       responses:
         200:
           description: (OK) lista de Rols obtenida con exito
@@ -270,6 +287,8 @@ paths:
       tags:
         - Rol
       summary: Inserta la informacion de una nueva Rol a trabajar..
+      parameters:
+        - $ref: '#/components/parameters/jwtAdmin'
       requestBody:
         content:
           application/json:
@@ -285,7 +304,7 @@ paths:
         500:
           $ref: "#/components/responses/ServerError"
 
-  /api/{idRol}:
+  /api/v1/roles/{idRol}:
     get:
       tags:
         - Rol
@@ -301,6 +320,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtUser'
       responses:
         200:
           description: (OK) la informacion se guardo correctamente
@@ -326,6 +346,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtAdmin'
       requestBody:
         description: Añade los datos de los siguientes campos a modificar
         required: true
@@ -358,7 +379,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
-
+        - $ref: '#/components/parameters/jwtAdmin'
       responses:
         200:
           description: (OK) El cliente fue borrado exitosamente
@@ -370,11 +391,13 @@ paths:
           $ref: "#/components/responses/ServerError"
 
   #Usuarios
-  /api/usuarios:
+  /api/v1/usuarios:
     get:
       tags:
         - Usuario
       summary: Muestra las Usuarios Registradas
+      parameters:
+        - $ref: '#/components/parameters/jwtUser'
       responses:
         200:
           description: (OK) lista de Usuarios obtenida con exito
@@ -388,7 +411,9 @@ paths:
     post:
       tags:
         - Usuario
-      summary: Inserta la informacion de una nueva Usuario a trabajar..
+      summary: Inserta la informacion de una nueva Usuario a trabajar...
+      parameters:
+        - $ref: '#/components/parameters/jwtAdmin'
       requestBody:
         content:
           application/json:
@@ -404,7 +429,7 @@ paths:
         500:
           $ref: "#/components/responses/ServerError"
 
-  /api/{idUsuario}:
+  /api/v1/usuarios/{idUsuario}:
     get:
       tags:
         - Usuario
@@ -420,6 +445,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtUser'
       responses:
         200:
           description: (OK) la informacion se guardo correctamente
@@ -445,6 +471,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
+        - $ref: '#/components/parameters/jwtUser'
       requestBody:
         description: Añade los datos de los siguientes campos a modificar
         required: true
@@ -477,7 +504,7 @@ paths:
             example: 605c4d36a2cfde067c6c266d
             minLength: 24
             maxLength: 24
-
+        - $ref: '#/components/parameters/jwtAdmin'
       responses:
         200:
           description: (OK) El cliente fue borrado exitosamente
@@ -491,6 +518,23 @@ paths:
   #Meta
 
 components:
+  parameters:
+    jwtAdmin:
+      in: header
+      name: x-auth-token
+      required: true
+      description: JWT obtenido en la autenticación. El usuario debe tener rol ADMIN.
+      schema:
+        type: string
+
+    jwtUser:
+      in: header
+      name: x-auth-token
+      required: true
+      description: JWT obtenido en la autenticación. No importa el rol del usuario.
+      schema:
+        type: string
+
   responses:
     NotFound:
       description: (NotFound) no se encontro la informacion
