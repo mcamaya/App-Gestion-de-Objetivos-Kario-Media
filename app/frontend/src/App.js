@@ -5,6 +5,8 @@ import Login from './components/login.jsx';
 import Saludo from './components/saludo.jsx';
 import Navbar from './components/navbar.jsx';
 
+
+
 function App() {
   return (
     <Router>
@@ -25,6 +27,15 @@ function App() {
             <Switch>
               <Route exact path="/home">
                 <h1>Home</h1>
+                <Link to="/taks">
+                    <button > IR A OTRO LADO </button>
+                </Link>
+              </Route>
+              <Route exact path="/taks">
+                <h1>otro lado</h1>
+                <Link to="/home">
+                    <button > IR A home </button>
+                </Link>
               </Route>
             </Switch>
           </Route>
