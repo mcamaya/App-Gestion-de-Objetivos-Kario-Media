@@ -32,10 +32,12 @@ export default function Login() {
     } else {
       const {
         token,
-        usuario: { nombre, rol, imagen },
+        usuario: { _id, nombre, rol, imagen },
       } = data;
       
       localStorage.setItem('x-auth-token', token);
+      localStorage.setItem('ID', _id);
+
       history.push({
         pathname: "/welcome",
         state: {
