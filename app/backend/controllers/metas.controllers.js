@@ -115,6 +115,7 @@ export const añadirTareas = async (req, res, next) => {
               `Integrante con ID ${user} no existe en la base de datos. Tarea ${tarea}`
             );
           }
+          // Falta mandar notificación
         });
       })
     ).catch((err) => next(err));
