@@ -1,11 +1,12 @@
 import React from "react";
+import "./css/nav.css";
 
 import logo from  '../assets/img/kario.png'
-import añadir from  '../assets/img/kario.png'
-import refres from  '../assets/img/kario.png'
-import eliminar from  '../assets/img/kario.png' 
-import repor from  '../assets/img/kario.png'
-import ayuda from  '../assets/img/kario.png'
+import mas from  '../assets/img/mas.svg'
+import refres from  '../assets/img/res.svg'
+import eliminar from  '../assets/img/borrar.svg' 
+import repor from  '../assets/img/error.svg'
+import ayuda from  '../assets/img/question.svg'
 
 
 export default function Navbar(){
@@ -19,21 +20,29 @@ export default function Navbar(){
                     <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
                     <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">refe</a>
+                    <a class="nav-link active grup-a" aria-current="page" href="#"><img className="nav-logo"  src={mas} alt="" />Añadir</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Features</a>
+                    <a class="nav-link active grup-a" aria-current="page" href="#"><img className="nav-logo" src={refres} alt="" />Refrescar</a>
                     </li>
                     <li class="nav-item">
-                    <a class="navbar-brand" href="#"><img src={logo} alt="" srcset="" /></a>
+                    <a class="nav-link active grup-a" aria-current="page" href="#"><img className="nav-logo" src={eliminar} alt="" />Eliminar</a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="#">Pricing</a>
+                    <a class="nav-item" href="#"><img src={logo} className="logo" alt="" srcset="" /></a>
                     </li>
                     <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                    <a class="nav-link active grup-a" aria-current="page" href="#"><img className="nav-logo" src={repor} alt="" />Eliminar</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link active grup-a" aria-current="page" href="#"><img className="nav-logo" src={ayuda} alt="" />Ayuda</a>
                     </li>
             </ul>
+            <form class="d-flex" role="search">
+                <img src="" alt="" />
+                <h1>hola</h1>
+             <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
             </div>
         </div>
 </nav>
