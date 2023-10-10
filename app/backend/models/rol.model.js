@@ -5,6 +5,10 @@ const RolSchema = new Schema({
     type: String,
     required: true,
     trim: true,
+  },
+  estado: {
+    type: Boolean,
+    default: true
   }
 }, {
   versionKey: false

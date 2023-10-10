@@ -14,6 +14,7 @@ const tareas = Joi.array().items({
   instrucciones: Joi.string(),
   tiempoHoras: Joi.number(),
   integrantes: Joi.array().items(Joi.string().hex().length(24)),
+  check: Joi.boolean()
 });
 
 export const getMetasSchema = Joi.object({
