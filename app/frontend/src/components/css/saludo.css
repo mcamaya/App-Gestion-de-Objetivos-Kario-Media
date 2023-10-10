@@ -47,12 +47,6 @@
   height: 118px;
 }
 
-.logo-login img{
-  margin-top: 20px;
-  height: 120px;
-  width: 100px;
-}
-
 .user-image {
   object-fit: cover;
   height: auto;
