@@ -21,14 +21,16 @@ export default function Login(){
                 </div>
             </div>
             <div className="inputs-login">
-                <div className="inputs-container">
-                <label>Usuario</label>
-                <input type="text" />
-                </div>
-                <div className="inputs-container">
-                <label>Contraseña</label>
-                <input type="text" />
-                </div>
+                <form>
+                    <div className="inputs-container">
+                        <label>Usuario</label>
+                        <input type="text" />
+                    </div>
+                    <div className="inputs-container">
+                        <label>Contraseña</label>
+                        <input type="text" />
+                    </div>
+                </form>
             </div>
             <div className="button-login">
                 <Link to="/welcome">
