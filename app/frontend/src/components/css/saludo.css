@@ -53,6 +53,12 @@
   width: 100px;
 }
 
+.user-image {
+  object-fit: cover;
+  height: auto;
+  width: auto;
+}
+
 .bienvenida-loged{
   margin: 25px 0 10px 0;
 }

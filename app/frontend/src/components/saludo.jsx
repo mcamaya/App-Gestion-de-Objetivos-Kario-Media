@@ -4,13 +4,11 @@ import { BrowserRouter as Link, useHistory } from 'react-router-dom';
 import './css/saludo.css'
 import logo2 from '../assets/img/kario-media.png';
 import logo from '../assets/img/kario.png';
-import userImage from '../assets/img/user-image.jpg';
-
 
 export default function Saludo() {
 	const location = useLocation();
   const history = useHistory();
-	const {state: {nombre, rol}} = location;
+	const {state: {nombre, rol, imagen}} = location;
 
   useEffect(()=>{
       const timer = setTimeout(()=>{
@@ -31,7 +29,7 @@ export default function Saludo() {
           <h1>Bienvenido de vuelta</h1>
         </div>
         <div className="user-loged">
-          <img src={userImage} alt="..." />
+          <img src={`${imagen}`} alt="..." className='user-image'/>
         </div>
         <div className="username-loged">
           <h1>{nombre}</h1>
