@@ -4,6 +4,7 @@ import './App.css';
 import Login from './components/login.jsx';
 import Saludo from './components/saludo.jsx';
 import Navbar from './components/navbar.jsx';
+import Panel from './components/panel.jsx';
 
 function App() {
   return (
@@ -24,13 +25,12 @@ function App() {
             <Navbar />
             <Switch>
               <Route exact path="/home">
-                <h1>Home</h1>
+                <Panel/>
                 <Link to="/taks">
                     <button > IR A OTRO LADO </button>
                 </Link>
               </Route>
               <Route exact path="/taks">
-                <h1>otro lado</h1>
                 <Link to="/home">
                     <button > IR A home </button>
                 </Link>
