@@ -105,20 +105,30 @@ export const editarMeta = async (req, res, next) => {
 
 export const añadirTareas = async (req, res, next) => {
   try {
+    const oid = req.params.id;
+    const meta = await Meta.findById({ _id : oid})
     const { tareas } = req.body;
+    const promises = []
     /* validar si existen los id enviados en el campo integrantes */
-    Promise.all(
-      tareas.map(async (tarea) => {
-        tarea.integrantes.map(async (user) => {
-          if (!(await Usuario.findOne({ _id: user }))) {
-            throw boom.notFound(
-              `Integrante con ID ${user} no existe en la base de datos. Tarea ${tarea}`
-            );
-          }
-          // Falta mandar notificación
+    tareas.forEach((tarea) => {
+      tarea.integrantes.forEach(async (userId) => {
+        const user = await Usuario.findById({_id: userId});
+        if(!user){
+          return next(
+            boom.notFound(
+              `Integrante con ID ${userId} no existe en la base de datos. Tarea ${tarea}`
+            )
+          );
+        }
+        //Falta mandar la notificacion
+        user.notificacion.push({
+          mensaje: `Se le ha asignado la siguiente tarea: "${tarea.titulo}" de la meta "${meta.nombre}" .`,
+          estado: true,
         });
-      })
-    ).catch((err) => next(err));
+        promises.push(user.save());
+      });
+    });
+    await Promise.all(promises);
     const newData = await Meta.findOneAndUpdate(
       { _id: req.params.id },
       { tareas },
