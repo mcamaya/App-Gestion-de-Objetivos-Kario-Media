@@ -14,6 +14,7 @@ export default function MetaDashboard() {
   const [apiData, setApiData] = useState(null);
   const [tareas, setTareas] = useState(null);
 
+  /* fetch API data */
   useEffect(() => {
     if (!token) return history.push("/login");
     fetch(`${urlApi}/metas/${metaId}`, {
@@ -30,6 +31,7 @@ export default function MetaDashboard() {
       .catch((err) => console.log(err));
   }, []);
 
+  /* marcar completo o incompleto una tarea */
   const toggleCheckbox = (tareaId) => {
     let newTareas = [...tareas];
     let editado = newTareas.find((t) => t._id === tareaId);
@@ -65,7 +67,39 @@ export default function MetaDashboard() {
     }
   };
 
+  /* eliminar una tarea */
+  const deletingTask = (tareaId) => {
+    let newTareas = [...tareas];
+    let index = newTareas.findIndex((t) => t._id === tareaId);
+    if (
+      window.confirm(
+        `Seguro que desea marcar eliminar la tarea '${newTareas[index].titulo}'`
+      )
+    ) {
+      newTareas.splice(index, 1);
+      newTareas.forEach((e, i) => {
+        delete newTareas[i].integranteData;
+        delete newTareas[i]._id;
+      });
+
+      console.log(newTareas);
+      fetch(`${urlApi}/metas/add-tasks/${metaId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({ tareas: newTareas }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .finally(() => window.location.reload())
+        .catch((err) => alert(err));
+    }
+  };
+
   if (!apiData) {
+    // esperar a recibir respuesta para renderizar
     return (
       <div className="spinner-container">
         <Spinner />
@@ -80,6 +114,7 @@ export default function MetaDashboard() {
           apiData={apiData}
           tareas={tareas}
           toggleCheckbox={toggleCheckbox}
+          deletingTask={deletingTask}
         />
       </Suspense>
     </div>
