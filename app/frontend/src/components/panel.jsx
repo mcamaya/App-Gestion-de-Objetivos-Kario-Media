@@ -5,6 +5,7 @@ import "../components/css/panel.css";
 import incompleta from "../assets/img/grafica-incompleto.svg";
 import proceso from "../assets/img/grafica-proceso.svg";
 import completa from "../assets/img/grafica-completo.svg";
+import formatDate from "../helpers/dateFormating";
 
 export default function Panel() {
   const [data, setData] = useState([]);
@@ -20,11 +21,6 @@ export default function Panel() {
         console.error("Error al obtener datos de la API:", error);
       });
   }, []);
-
-  const formatDate = (dateString) => {
-    const options = { year: "numeric", month: "long", day: "numeric" };
-    return new Date(dateString).toLocaleDateString(undefined, options);
-  };
 
   const calculatePercentage = (tareas) => {
     if (tareas && tareas.length > 0) {
@@ -70,7 +66,7 @@ export default function Panel() {
         </div>
         {data.length > 0 ? (
           data.map((item, index) => (
-            <Link to="/taks" onClick={() => handleClick(item._id)}  key={index}>
+            <Link to="/meta-dashboard" onClick={() => handleClick(item._id)}  key={index}>
               <div className="row-container hover">
                 <div className="row">
                   <div className="cell hover">{item.nombre}</div>

@@ -1,13 +1,15 @@
 import React from "react";
+import formatDate from "../helpers/dateFormating";
 
 export default function MetasContent({ apiData, tareas, toggleCheckbox }) {
+
   return (
     <>
       <div className="metas-main-content">
         <div className="meta-title">
           <h2>{apiData.nombre}</h2>
-          <h6>Fecha de inicio: {apiData.fechaInicio}</h6>
-          <h6>Fecha final: {apiData.fechaFinal}</h6>
+          <h6>Fecha de inicio: {formatDate(apiData.fechaInicio)}</h6>
+          <h6>Fecha final: {formatDate(apiData.fechaFinal)}</h6>
         </div>
         <div className="meta-tasks">
           <table className="tasks-table">
