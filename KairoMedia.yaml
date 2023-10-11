@@ -8,8 +8,10 @@ servers:
 tags:
   - name: Area
   - name: Meta
+  - name: Tareas
   - name: Rol
   - name: Usuario
+  - name: Images
   - name: Autenticacion
 
 paths:
@@ -274,10 +276,11 @@ paths:
         500:
           $ref: "#/components/responses/ServerError"
 
-  /api/v1/porcentaje/{idMeta}:
+  #Tareas
+  /api/v1/metas/porcentaje/{idMeta}:
     get:
       tags:
-        - Meta
+        - Tareas
       summary: Obtiene cantidad de tareas
       description: Obtiene la cantidad de tareas finalizadas y incompletas la meta especifica.
       parameters:
@@ -303,14 +306,14 @@ paths:
         500:
           $ref: "#/components/responses/ServerError"
 
-  /api/v1/add-tasks/{idMeta}:
+  /api/v1/metas/add-tasks/{idMeta}:
     post:
       tags:
-        - Meta
+        - Tareas
       parameters:
         - name: idMeta
           in: path
-          description: Se obtiene la informacion de una Meta especifica.
+          description: Se necesita el objectId de la meta especifica para añadir tareas.
           required: true
           schema:
             type: string
@@ -504,45 +507,6 @@ paths:
         500:
           $ref: "#/components/responses/ServerError"
 
-  /api/v1/usuarios/photo/{idUsuario}:
-    post:
-      tags:
-        - Usuario
-      summary: Crear una imagen al usuario
-      description: Inserta la imagen como archivo para generarla en base64 y guardarla como un string
-      parameters:
-        - name: idUsuario
-          in: path
-          description: Se obtiene la informacion de una Usuario solicitada
-          required: true
-          schema:
-            type: string
-            format: objectId
-            pattern: '^[0-9a-fA-F]+$'
-            minLength: 24
-            maxLength: 24
-            example: 605c4d36a2cfde067c6c266d
-        - $ref: '#/components/parameters/jwtAdmin'
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                image:
-                  type: string
-                  format: base64
-                  example: "data:image/png;base64,{IMAGEN EN BASE64}"
-      responses:
-        200:
-          description: (OK) la informacion se guardo correctamente
-        400:
-          $ref: "#/components/responses/BadRequest"
-        404:
-          $ref: "#/components/responses/NotFound"
-        500:
-          $ref: "#/components/responses/ServerError"
-
   /api/v1/usuarios/{idUsuario}:
     get:
       tags:
@@ -576,6 +540,7 @@ paths:
       tags:
         - Usuario
       summary: Busca en la base de datos la coincidencia
+      description: Aca se encuentran las 2 peticiones para el llenado del usuario, puedes elejir entre application/json para llenar los diferentes campos y usar multipart/form-data para ingresar la imagen del Usuario
       parameters:
         - name: idUsuario
           in: path
@@ -596,6 +561,14 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/UsuarioPost"
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: base64
+                  example: "data:image/png;base64,{IMAGEN EN BASE64}"
       responses:
         200:
           description: (OK) la informacion se guardo correctamente
@@ -632,11 +605,10 @@ paths:
           $ref: "#/components/responses/NotFound"
         500:
           $ref: "#/components/responses/ServerError"
-
   /api/v1/usuarios/updatePhoto/{idUsuario}:
     patch:
       tags:
-        - Usuario
+        - Images
       summary: Busca en la base de datos la coincidencia
       parameters:
         - name: idUsuario
@@ -835,9 +807,6 @@ components:
               type: string
               format: uppercase
               example: USER
-        imagen:
-          type: string
-          format: byte
         notificacion:
           type: array
           properties: 
@@ -862,6 +831,3 @@ components:
           maxLength: 20
           pattern: '^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@#$%^&+=!]).*$'
           example: Password123!
-    
-    
-
