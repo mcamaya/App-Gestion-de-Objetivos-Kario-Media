@@ -7,7 +7,7 @@ import isAdminRole from "../middlewares/isAdminRole.js";
 
 const router = Router();
 
-router.get("/", service.getMetas);
+router.get("/", verifyToken, service.getMetas);
 router.get(
   "/porcentaje/:id",
   [verifyToken, validateSchema(schemas.getMetasSchema, "params")],
