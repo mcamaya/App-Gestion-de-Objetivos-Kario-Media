@@ -1,6 +1,4 @@
 import React from "react";
-import "./css/nav.css";
-
 import logo from "../assets/img/kario.png";
 import mas from "../assets/img/mas.svg";
 import refres from "../assets/img/res.svg";
@@ -11,17 +9,13 @@ import campana from "../assets/img/campana.svg";
 import ajustes from "../assets/img/ajustes.svg";
 import imgen from "../assets/img/user-image.jpg";
 
+import '../components/css/nav.css'
+
 export default function Navbar() {
   return (
-<<<<<<< HEAD
     <div style={{ width: "100%" }}>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-=======
-    <div>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
->>>>>>> origin/frontend
           <button
             className="navbar-toggler"
             type="button"
@@ -44,13 +38,13 @@ export default function Navbar() {
                   <img className="nav-logo" src={mas} alt="" /> Agregar
                 </a>
               </li>
-              <li className="nav-item ">
+              <li className="nav-item">
                 <a
-                  className="nav-link active grup-a d-flex align-items-center gap-2 "
+                  className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
                   href="#"
                 >
-                  <img className="nav-logo" src={refres} alt="" /> Referescar
+                  <img className="nav-logo" src={refres} alt="" /> Refrescar
                 </a>
               </li>
               <li className="nav-item">
@@ -63,8 +57,12 @@ export default function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active grup-a" aria-current="page" href="#">
-                  <img className="logo-nav " src={logo} alt="" />
+                <a
+                  className="nav-link active grup-a"
+                  aria-current="page"
+                  href="#"
+                >
+                  <img className="logo-nav" src={logo} alt="" />
                 </a>
               </li>
               <li className="nav-item">
@@ -88,18 +86,18 @@ export default function Navbar() {
             </ul>
 
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-              <li className="nav-item ">
+              <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="#">
                   <img className="ajustes-nav" src={ajustes} alt="" />
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active " aria-current="page" href="#">
+                <a className="nav-link active" aria-current="page" href="#">
                   <img className="ajustes-nav" src={campana} alt="" />
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active " aria-current="page" href="#">
+                <a className="nav-link active" aria-current="page" href="#">
                   <img className="imagen-nav" src={imgen} alt="" />
                 </a>
               </li>

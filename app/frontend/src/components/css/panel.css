@@ -1,4 +1,9 @@
 /* Estilos generales */
+
+a {
+  text-decoration: none;
+}
+
 .table {
 }
 
@@ -12,19 +17,21 @@
   border: 1px solid black;
   border-radius: 20px;
   margin: 10px 0;
-  padding: 10px;
+  padding: 5px;
 }
 
 .row-header {
   display: flex;
   justify-content: space-between;
-  margin: 10px 0;
-  padding: 10px;
+  margin-top: 2rem;
 }
 
 .cell {
   flex: 1; /* Las celdas ocuparán el espacio disponible en igual proporción */
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .indice div {
@@ -61,13 +68,22 @@
 }
 
 .background-container {
-  background-image: url("../../assets/img/grafica.svg");
-  background-size: 40px 40px;
+  background-size: 50px 50px;
   background-repeat: no-repeat;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   text-align: center; /* Alinea el texto horizontalmente en el centro */
-  line-height: 20px;
+  line-height: 50px; /* Asegura que el texto esté verticalmente centrado */
+  font-weight: 300;
+  font-size: 15px;
+  padding: 0;
+  margin: 0;
+}
+
+/* Utiliza una clase adicional */
+.background-container.my-graph {
+  /* Resto de tus estilos */
+  filter: hue-rotate(240deg); /* Cambia el color a azul */
 }
 
 /* Estilos responsivos */
