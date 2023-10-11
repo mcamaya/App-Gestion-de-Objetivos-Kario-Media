@@ -5,6 +5,7 @@ import Login from './components/login.jsx';
 import Saludo from './components/saludo.jsx';
 import Navbar from './components/navbar.jsx';
 import Panel from './components/panel.jsx';
+import MetaDashboard from './components/metaDashboard';
 
 function App() {
   return (
@@ -34,6 +35,9 @@ function App() {
                 <Link to="/home">
                     <button > IR A home </button>
                 </Link>
+              </Route>
+              <Route exact path="/meta-dashboard">
+                <MetaDashboard />
               </Route>
             </Switch>
           </Route>

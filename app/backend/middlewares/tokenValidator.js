@@ -14,7 +14,7 @@ const verifyToken = async (req = request, res = response, next) => {
     if (!user) throw boom.illegal("Token adulterado");
 
     req.usuario = user;
-    console.log(`Usuario token`, req.usuario);
+    console.log(`Usuario token`, req.usuario.nombre);
     next();
   } catch (err) {
     next(err);

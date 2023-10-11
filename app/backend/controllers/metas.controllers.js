@@ -32,17 +32,47 @@ export const getOneMeta = async (req, res, next) => {
   try {
     const oid = new ObjectId(req.params.id);
     const [data] = await metas
-      .aggregate([
-        { $match: { _id: oid } },
-        {
-          $lookup: {
-            from: "areas", // collection
-            localField: "area",
-            foreignField: "_id",
-            as: "area",
+      .aggregate(
+        [
+          {
+            $match: {
+              _id: oid 
+            }
           },
-        },
-      ])
+          {
+            $unwind: {
+              path: "$tareas",
+            }
+          },
+          {
+            $lookup: {
+              from: "usuarios",
+              foreignField: "_id",
+              localField: "tareas.integrantes",
+              as: "tareas.integrantes",
+            }
+          },
+          {
+            $unwind: {
+              path: "$tareas.integrantes",
+            }
+          },
+          {
+            $group: {
+              _id: "$_id",
+              nombre: { $first: "$nombre" },
+              descripcion: { $first: "$descripcion" },
+              dificultad: { $first: "$dificultad" },
+              fechaInicio: { $first: "$fechaInicio" },
+              fechaFinal: { $first: "$fechaFinal" },
+              metodologia: { $first: "$metodologia" },
+              cumplimiento: { $first: "$cumplimiento" },
+              tareas: { $push: "$tareas" },
+              area: { $first: "$area" },
+            }
+          }
+        ]
+      )
       .toArray();
     res.status(200).json(data);
   } catch (err) {
@@ -107,18 +137,21 @@ export const añadirTareas = async (req, res, next) => {
   try {
     const { tareas } = req.body;
     /* validar si existen los id enviados en el campo integrantes */
-    Promise.all(
-      tareas.map(async (tarea) => {
-        tarea.integrantes.map(async (user) => {
-          if (!(await Usuario.findOne({ _id: user }))) {
-            throw boom.notFound(
-              `Integrante con ID ${user} no existe en la base de datos. Tarea ${tarea}`
-            );
+      await Promise.all(
+        tareas.map((tarea) => {
+          tarea.integrantes.map(async (user) => {
+          try {
+            if (!(await Usuario.findOne({ _id: user }))) {
+              throw boom.notFound(
+                `Integrante con ID ${user} no existe en la base de datos. Tarea ${JSON.stringify(tarea)}`
+              );
+            }
+          } catch (err) {
+            next(err);
           }
-          // Falta mandar notificación
-        });
-      })
-    ).catch((err) => next(err));
+          });
+        })
+      ).catch((err) => next(err));
     const newData = await Meta.findOneAndUpdate(
       { _id: req.params.id },
       { tareas },
