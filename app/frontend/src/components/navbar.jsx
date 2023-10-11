@@ -7,11 +7,12 @@ import repor from "../assets/img/error.svg";
 import ayuda from "../assets/img/question.svg";
 import campana from "../assets/img/campana.svg";
 import ajustes from "../assets/img/ajustes.svg";
-import imgen from "../assets/img/user-image.jpg";
+//import imgen from "../assets/img/user-image.jpg";
 
 import "../components/css/nav.css";
 
 export default function Navbar() {
+  const imagen = localStorage.getItem('userImage');
   return (
     <div style={{ width: "100%" }}>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -98,7 +99,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="#">
-                  <img className="imagen-nav" src={imgen} alt="" />
+                  <img className="imagen-nav tarea-foto-integrante" src={`${imagen}`} alt="" />
                 </a>
               </li>
             </ul>

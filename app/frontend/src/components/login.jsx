@@ -37,6 +37,7 @@ export default function Login() {
       
       localStorage.setItem('x-auth-token', token);
       localStorage.setItem('ID', _id);
+      localStorage.setItem('userImage', imagen);
 
       history.push({
         pathname: "/welcome",
