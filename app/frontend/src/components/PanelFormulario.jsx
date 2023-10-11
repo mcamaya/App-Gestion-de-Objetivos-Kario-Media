@@ -1,30 +1,50 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import {useHistory} from 'react-router-dom';
 
 const Formulario = () => {
   let history = useHistory();
 
-  const [Nombre, SetNombre] = useState("");
-  const [Descripcion, SetDescripcion] = useState("");
-  const [Dificultad, SetDificultad] = useState("");
-  const [FechaInicio, SetFechaInicio] = useState("");
-  const [FechaTermino, SetFechaTermino] = useState("");
-  const [Metodologia, SetMetodologia] = useState("");
-  const [Cumplimiento, SetCumplimiento] = useState("");
-  const [Area, SetArea] = useState("");
+  const [nombre, Setnombre] = useState("");
+  const [descripcion, Setdescripcion] = useState("");
+  const [dificultad, Setdificultad] = useState("");
+  const [fechaInicio, SetfechaInicio] = useState("");
+  const [fechaFinal, SetfechaFinal] = useState("");
+  const [metodologia, Setmetodologia] = useState("");
+  const [cumplimiento, Setcumplimiento] = useState("");
+  const [area, Setarea] = useState("");
+  const [areas, SetAreas] = useState([]);
+
+  useEffect(() => {
+    axios.get(`http://localhost:8000/api/v1/areas`)
+      .then(response => {
+        const extractedAreas = response.data.map(({ _id, nombre, estado }) => ({ _id, nombre, estado }));
+        SetAreas(extractedAreas);
+      });
+  }, []);   
 
   const postData = ()=>{
-    axios.post(`http://localhost:8000/metas`,
+    const token = localStorage.getItem("x-auth-token");
+
+    const headers = {
+      "x-auth-token": token,
+    };
+
+    const cumplimientoNumber = Number(cumplimiento)
+
+    axios.post(`http://localhost:8000/api/v1/metas`,
     {
-      Nombre,
-      Descripcion,
-      Dificultad,
-      FechaInicio,
-      FechaTermino,
-      Metodologia,
-      Cumplimiento,
-      Area
+      nombre,
+      descripcion,
+      dificultad,
+      fechaInicio,
+      fechaFinal,
+      metodologia,
+      cumplimiento: cumplimientoNumber,
+      area,
+    },
+    {
+      headers: headers,
     }
     ).then(()=>{
       history.push('/home')
@@ -40,36 +60,44 @@ const Formulario = () => {
     <div>
       <form className='create-form' onSubmit={handleSubmit}>
         <div>
-          <label>Nombre</label>
-          <input type="text" placeholder='Nombre' value={Nombre} onChange={(e) => SetNombre(e.target.value)} />
+          <label>nombre</label>
+          <input type="text" placeholder='nombre' value={nombre} onChange={(e) => Setnombre(e.target.value)} />
         </div>
         <div>
-          <label>Descripcion</label>
-          <input type="text" placeholder='Descripcion' value={Descripcion} onChange={(e) => SetDescripcion(e.target.value)} />
+          <label>descripcion</label>
+          <input type="text" placeholder='descripcion' value={descripcion} onChange={(e) => Setdescripcion(e.target.value)} />
         </div>
         <div>
-          <label>Dificultad</label>
-          <input type="text" placeholder='Dificultad' value={Dificultad} onChange={(e) => SetDificultad(e.target.value)} />
+          <label>dificultad</label>
+          <select name="dificultad" id="dificultad" value={dificultad} onChange={(e) => Setdificultad(e.target.value)}>
+            <option value="" disabled> . . . </option>
+            <option value="Baja">Baja</option>
+            <option value="Media">Media</option>
+            <option value="Alta">Alta</option>
+          </select>
         </div>
         <div>
-          <label>FechaInicio</label>
-          <input type="date" placeholder='FechaInicio' value={FechaInicio} onChange={(e) => SetFechaInicio(e.target.value)} />
+          <label>fechaInicio</label>
+          <input type="date" placeholder='fechaInicio' value={fechaInicio} onChange={(e) => SetfechaInicio(e.target.value)} />
         </div>
         <div>
-          <label>FechaTermino</label>
-          <input type="date" placeholder='FechaTermino' value={FechaTermino} onChange={(e) => SetFechaTermino(e.target.value)} />
+          <label>fechaFinal</label>
+          <input type="date" placeholder='fechaFinal' value={fechaFinal} onChange={(e) => SetfechaFinal(e.target.value)} />
         </div>
         <div>
-          <label>Metodologia</label>
-          <input type="text" placeholder='Metodologia' value={Metodologia} onChange={(e) => SetMetodologia(e.target.value)} />
+          <label>metodologia</label>
+          <input type="text" placeholder='metodologia' value={metodologia} onChange={(e) => Setmetodologia(e.target.value)} />
         </div>
         <div>
-          <label>Cumplimiento</label>
-          <input type="number" placeholder='Cumplimiento' value={Cumplimiento} onChange={(e) => SetCumplimiento(e.target.value)} />
-        </div>
-        <div>
-          <label>Area</label>
-          <input type="text" placeholder='Area' value={Area} onChange={(e) => SetArea(e.target.value)} />
+          <label>area</label>
+          <select value={area} onChange={(e) => Setarea(e.target.value)}>
+            <option value="" disabled>Selecciona un área</option>
+            {areas.map(area => (
+              <option key={area._id} value={area._id}>
+                {area.nombre}
+              </option>
+            ))}
+          </select>
         </div>
         <button type="submit">Guardar</button>
       </form>
