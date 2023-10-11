@@ -35,27 +35,38 @@ const MetaSchema = new Schema(
       required: true,
       ref: "areas",
     },
-    tareas: [
-      {
-        titulo: {
-          type: String,
+    tareas: {
+      type: [
+        {
+          titulo: {
+            type: String,
+          },
+          instrucciones: {
+            type: String,
+          },
+          tiempoHoras: {
+            type: Number,
+          },
+          check: {
+            type: Boolean,
+            default: false
+          },
+          integrantes: [{
+            type: Schema.Types.ObjectId,
+            ref: 'usuarios'
+          }]
         },
-        instrucciones: {
-          type: String,
-        },
-        tiempoHoras: {
-          type: Number,
-        },
-        check: {
-          type: Boolean,
-          default: false
-        },
-        integrantes: [{
-          type: Schema.Types.ObjectId,
-          ref: 'usuarios'
-        }]
-      },
-    ],
+      ],
+      default: [
+        {
+          titulo: "Un nuevo proyecto",
+          instrucciones: "Hagamos que valga la pena",
+          tiempoHoras: 1,
+          check: false,
+          integrantes: ['6523e96a4490418e2549a187']
+        }
+      ]
+    },
     cumplimiento: {
       type: Number,
       default: 0,
