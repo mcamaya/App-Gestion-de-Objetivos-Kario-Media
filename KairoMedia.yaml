@@ -504,6 +504,45 @@ paths:
         500:
           $ref: "#/components/responses/ServerError"
 
+  /api/v1/usuarios/photo/{idUsuario}:
+    post:
+      tags:
+        - Usuario
+      summary: Crear una imagen al usuario
+      description: Inserta la imagen como archivo para generarla en base64 y guardarla como un string
+      parameters:
+        - name: idUsuario
+          in: path
+          description: Se obtiene la informacion de una Usuario solicitada
+          required: true
+          schema:
+            type: string
+            format: objectId
+            pattern: '^[0-9a-fA-F]+$'
+            minLength: 24
+            maxLength: 24
+            example: 605c4d36a2cfde067c6c266d
+        - $ref: '#/components/parameters/jwtAdmin'
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: base64
+                  example: "data:image/png;base64,{IMAGEN EN BASE64}"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
   /api/v1/usuarios/{idUsuario}:
     get:
       tags:
@@ -587,6 +626,46 @@ paths:
       responses:
         200:
           description: (OK) El cliente fue borrado exitosamente
+        400:
+          $ref: "#/components/responses/BadRequest"
+        404:
+          $ref: "#/components/responses/NotFound"
+        500:
+          $ref: "#/components/responses/ServerError"
+
+  /api/v1/usuarios/updatePhoto/{idUsuario}:
+    patch:
+      tags:
+        - Usuario
+      summary: Busca en la base de datos la coincidencia
+      parameters:
+        - name: idUsuario
+          in: path
+          description: Actualiza la informacion de la imagen del respectivo usuario
+          required: true
+          schema:
+            type: string
+            format: objectId
+            pattern: '^[0-9a-fA-F]+$'
+            minLength: 24
+            maxLength: 24
+            example: 605c4d36a2cfde067c6c266d
+        - $ref: '#/components/parameters/jwtUser'
+      requestBody:
+        description: Añade los datos de los siguientes campos a modificar
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: base64
+                  example: "data:image/png;base64,{IMAGEN EN BASE64}"
+      responses:
+        200:
+          description: (OK) la informacion se guardo correctamente
         400:
           $ref: "#/components/responses/BadRequest"
         404:
