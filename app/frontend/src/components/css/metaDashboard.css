@@ -27,7 +27,7 @@
   border-radius: 10px;
   background: #d3fec0;
   padding: 15px;
-  min-height: 30vh;
+  min-height: 25vh;
   max-height: fit-content;
 }
 
@@ -127,4 +127,8 @@
   color: white;
   height: 25px;
   width: 25px;
+}
+
+.add-tasks-container > * {
+  position: absolute;
 }

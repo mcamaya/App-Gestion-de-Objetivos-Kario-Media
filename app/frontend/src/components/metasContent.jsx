@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {HiTrash} from "react-icons/hi2"
+import { FaTrashAlt } from "react-icons/fa";
 import formatDate from "../helpers/dateFormating";
+import AñadirTareas from "./añadirTareas";
 
 export default function MetasContent({
   apiData,
   tareas,
   toggleCheckbox,
   deletingTask,
+  addNewTask,
 }) {
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -66,7 +68,7 @@ export default function MetasContent({
                         deletingTask(tarea._id);
                       }}
                     >
-                      <HiTrash />
+                      {/* <FaTrashAlt /> */}
                     </button>
                   </td>
                 </tr>
@@ -80,9 +82,14 @@ export default function MetasContent({
           <h2>Description</h2>
           <h6>{apiData.descripcion}</h6>
         </div>
-        <Link to="/meta-dashboard/añadir">
-          <button className="añadir-button">Añadir Tarea</button>
-        </Link>
+
+        <div className="aside-form">
+          <AñadirTareas addNewTask={addNewTask} />
+        </div>
+
+        {/* <Link to="/meta-dashboard/añadir"> */}
+        
+
         <button
           className="eliminar-button"
           onClick={() => setIsDeleting(!isDeleting)}

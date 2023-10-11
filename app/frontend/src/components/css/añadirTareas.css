@@ -1,0 +1,55 @@
+
+.input-form-container2{
+  display: flex;
+  flex-direction: column;
+}
+
+.input-form-container2 label{
+  font-size: 1.1rem;
+}
+
+.input-form-container2{
+  width: 90%;
+  margin-top: 20px;
+}
+
+.input-form-container2{
+  margin-top: 10px;
+}
+
+.input-form-container2 input, select{
+  border-radius: 5px;
+  border-style: none;
+  height: 27px;
+  padding: 0 8px;
+  background-color: #E8E5E5;
+}
+
+.input-form-container2 textarea{
+  border-radius: 5px;
+  border-style: none;
+  padding: 5px 8px;
+  background-color: #E8E5E5;
+}
+
+.btn-submit-container{
+  width: 100%;
+  height: 40px;
+}
+
+.btn-submit-container button{
+  width: 45%;
+  font-size: 18px;
+  border-style: none;
+  color: white;
+  border-radius: 5px;
+  height: 100%;
+  background-color: #FF6F2C;
+  margin-top: 50px;
+}
+
+.btn-submit-container #cancelar{
+  width: 44%;
+  margin-left: 8%;
+  background-color: #4CAEA8;
+}

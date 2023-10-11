@@ -99,11 +99,27 @@ export default function MetaDashboard() {
   };
 
   const addNewTask = (newTask) => {
+    console.log('entraaa');
     let newTareas = [...tareas];
     newTareas.forEach((e, i) => {
       delete newTareas[i].integranteData;
       delete newTareas[i]._id;
     });
+    newTareas.push(newTask);
+    console.log(newTareas);
+
+    fetch(`${urlApi}/metas/add-tasks/${metaId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": token,
+      },
+      body: JSON.stringify({ tareas: newTareas }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data))
+      .finally(() => window.location.reload())
+      .catch((err) => alert(err));
   }
 
   if (!apiData) {
@@ -123,6 +139,7 @@ export default function MetaDashboard() {
           tareas={tareas}
           toggleCheckbox={toggleCheckbox}
           deletingTask={deletingTask}
+          addNewTask={addNewTask}
         />
       </Suspense>
     </div>
