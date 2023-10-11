@@ -50,7 +50,7 @@ export default function Panel() {
 
       </div>
       <div className="d-flex justify-content-center">
-        <p style={{ textAlign: "center" }}>
+        <p id="text-info" style={{ textAlign: "center" }}>
           Aquí puedes visualizar los indicadores propuestos y añadidos por tu
           equipo de trabajo. Si quieres ver más detalles, da clic en uno de
           ellos para obtener más información.
@@ -71,7 +71,7 @@ export default function Panel() {
         </div>
         {data.length > 0 ? (
           data.map((item, index) => (
-            <Link id='remover' to="/meta-dashboard" onClick={() => handleClick(item._id)}  key={index}>
+            <Link id='remover' className="mapped-item" to="/meta-dashboard" onClick={() => handleClick(item._id)}  key={index}>
               <div className="row-container hover">
                 <div className="row">
                   <div className="cell hover">{item.nombre}</div>
@@ -105,12 +105,12 @@ export default function Panel() {
         ) : (
           <p>Cargando datos...</p>
         )}
+      </div>
         <div className='btn-container'>
           <Link to="/home/formulario">
             <button id='crear-metas'> Añadir Elementos </button>
           </Link>
         </div>
-      </div>
     </div>
   );
 }
