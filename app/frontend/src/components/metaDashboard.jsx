@@ -1,5 +1,6 @@
 import React, { useEffect, useState, Suspense } from "react";
 import { useHistory } from "react-router-dom";
+import Spinner from "./spinner.jsx";
 import urlApi from "../data/urlApi.js";
 import "./css/metaDashboard.css";
 
@@ -28,21 +29,9 @@ export default function MetaDashboard() {
       .catch((err) => console.log(err));
   }, []);
 
-  const lookForIntegrante = async (iduser) => {
-    const response = await fetch(`${urlApi}/usuarios/${iduser}`, {
-      method: "GET",
-      headers: {
-        "x-auth-token": token,
-      },
-    });
-    const { imagen } = await response.json();
-    console.log(imagen);
-    return imagen;
-  };
-
   return (
     <div className="metas-container">
-      <Suspense fallback="Loading...">
+      <Suspense fallback={<Loading />}>
         <div className="metas-main-content">
           <div className="meta-title">
             <h2>{apiData.nombre}</h2>
@@ -66,9 +55,9 @@ export default function MetaDashboard() {
                     <td>{tarea.titulo}</td>
                     <td>
                       <img
-                        src={`${(async () =>
-                          await lookForIntegrante(tarea.integrantes[0]))()}`}
+                        src={`${tarea.integrantes.imagen}`}
                         alt=""
+                        className="tarea-foto-integrante"
                       />
                     </td>
                     <td>{tarea.tiempoHoras}</td>
@@ -94,4 +83,11 @@ export default function MetaDashboard() {
       </div>
     </div>
   );
+}
+
+
+function Loading() {
+  return <div style={{backgroundColor: "red"}}>
+    <h2>🌀 Loading...</h2>
+  </div>;
 }

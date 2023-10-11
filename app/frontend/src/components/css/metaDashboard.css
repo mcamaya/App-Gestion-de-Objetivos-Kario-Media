@@ -60,3 +60,11 @@
   text-align: center;
   border-bottom: 1px solid rgb(167, 167, 167);
 }
+
+.tarea-foto-integrante {
+  object-fit: cover;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin: 14px 0;
+}

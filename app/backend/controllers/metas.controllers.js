@@ -20,14 +20,6 @@ export const getMetas = async (req, res, next) => {
             as: "area",
           },
         },
-        {
-          $lookup: {
-            from: "usuarios", // collection
-            localField: "tareas.integrantes",
-            foreignField: "_id",
-            as: "tareas.integrantes",
-          },
-        },
       ])
       .toArray();
     res.status(200).json(data);
@@ -40,42 +32,47 @@ export const getOneMeta = async (req, res, next) => {
   try {
     const oid = new ObjectId(req.params.id);
     const [data] = await metas
-      .aggregate([
-        { $match: { _id: oid } },
-        {
-          $lookup: {
-            from: "areas", // collection
-            localField: "area",
-            foreignField: "_id",
-            as: "area",
+      .aggregate(
+        [
+          {
+            $match: {
+              _id: oid 
+            }
           },
-        },
-        {$unwind: {
-          "path": "$tareas.integrantes"
-        }},
-        {
-          "$lookup": {
-            "from": "usuarios",
-            "foreignField": "_id",
-            "localField": "tareas.integrantesData",
-            "let": {
-              "Ttitulo": "$tareas.titulo",
-              "Tinstrucciones": "$tareas.instrucciones"
-            },
-            "pipeline": [
-              {
-                "$project": {
-                  "_id": 0,
-                  "tenantId": "$_id",
-                  "titulo": "$$Ttitulo",
-                  "tenant": "$$ROOT"
-                }
-              }
-            ],
-            "as": "associatedTenants"
+          {
+            $unwind: {
+              path: "$tareas",
+            }
+          },
+          {
+            $lookup: {
+              from: "usuarios",
+              foreignField: "_id",
+              localField: "tareas.integrantes",
+              as: "tareas.integrantes",
+            }
+          },
+          {
+            $unwind: {
+              path: "$tareas.integrantes",
+            }
+          },
+          {
+            $group: {
+              _id: "$_id",
+              nombre: { $first: "$nombre" },
+              descripcion: { $first: "$descripcion" },
+              dificultad: { $first: "$dificultad" },
+              fechaInicio: { $first: "$fechaInicio" },
+              fechaFinal: { $first: "$fechaFinal" },
+              metodologia: { $first: "$metodologia" },
+              cumplimiento: { $first: "$cumplimiento" },
+              tareas: { $push: "$tareas" },
+              area: { $first: "$area" },
+            }
           }
-        },
-      ])
+        ]
+      )
       .toArray();
     res.status(200).json(data);
   } catch (err) {
