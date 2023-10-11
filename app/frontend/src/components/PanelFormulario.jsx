@@ -102,8 +102,7 @@ const Formulario = () => {
                   onChange={(e) => Setdificultad(e.target.value)}
                 >
                   <option value="" disabled>
-                    {" "}
-                    . . .{" "}
+                    . . .
                   </option>
                   <option value="Baja">Baja</option>
                   <option value="Media">Media</option>
