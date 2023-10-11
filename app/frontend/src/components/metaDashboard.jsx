@@ -1,7 +1,9 @@
 import React, { useEffect, useState, Suspense, lazy } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Spinner from "./spinner.jsx";
 import urlApi from "../data/urlApi.js";
 import "./css/metaDashboard.css";
+
 const MetasContent = lazy(() => import("./metasContent.jsx"));
 
 export default function MetaDashboard() {
@@ -9,9 +11,8 @@ export default function MetaDashboard() {
   const token = localStorage.getItem("x-auth-token");
   const history = useHistory();
 
-  const [apiData, setApiData] = useState({});
-  const [tareas, setTareas] = useState([]);
-  const [error, setError] = useState({});
+  const [apiData, setApiData] = useState(null);
+  const [tareas, setTareas] = useState(null);
 
   useEffect(() => {
     if (!token) return history.push("/login");
@@ -64,23 +65,23 @@ export default function MetaDashboard() {
     }
   };
 
+  if (!apiData) {
+    return (
+      <div className="spinner-container">
+        <Spinner />
+      </div>
+    );
+  }
+
   return (
     <div className="metas-container">
-      <Suspense fallback={<Loading />}>
+      <Suspense fallback={<Spinner />}>
         <MetasContent
           apiData={apiData}
           tareas={tareas}
           toggleCheckbox={toggleCheckbox}
         />
       </Suspense>
-    </div>
-  );
-}
-
-function Loading() {
-  return (
-    <div style={{ backgroundColor: "red" }}>
-      <h2>🌀 Loading...</h2>
     </div>
   );
 }
