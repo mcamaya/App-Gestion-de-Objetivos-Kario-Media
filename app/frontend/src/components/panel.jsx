@@ -15,7 +15,6 @@ export default function Panel() {
       .then((response) => response.json())
       .then((data) => {
         setData(data);
-        console.log(data);
       })
       .catch((error) => {
         console.error("Error al obtener datos de la API:", error);
@@ -70,8 +69,8 @@ export default function Panel() {
           </div>
         </div>
         {data.length > 0 ? (
-          data.map((item) => (
-            <Link to="/taks" onClick={() => handleClick(item._id)}>
+          data.map((item, index) => (
+            <Link to="/taks" onClick={() => handleClick(item._id)}  key={index}>
               <div className="row-container hover">
                 <div className="row">
                   <div className="cell hover">{item.nombre}</div>

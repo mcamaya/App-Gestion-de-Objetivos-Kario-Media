@@ -1,111 +1,77 @@
-import React from "react";
+import React, {useState} from "react";
+import axios from "axios";
+import {useHistory} from 'react-router-dom';
 
 const Formulario = () => {
+  let history = useHistory();
+
+  const [Nombre, SetNombre] = useState("");
+  const [Descripcion, SetDescripcion] = useState("");
+  const [Dificultad, SetDificultad] = useState("");
+  const [FechaInicio, SetFechaInicio] = useState("");
+  const [FechaTermino, SetFechaTermino] = useState("");
+  const [Metodologia, SetMetodologia] = useState("");
+  const [Cumplimiento, SetCumplimiento] = useState("");
+  const [Area, SetArea] = useState("");
+
+  const postData = ()=>{
+    axios.post(`http://localhost:8000/metas`,
+    {
+      Nombre,
+      Descripcion,
+      Dificultad,
+      FechaInicio,
+      FechaTermino,
+      Metodologia,
+      Cumplimiento,
+      Area
+    }
+    ).then(()=>{
+      history.push('/home')
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postData();
+  }
+
   return (
     <div>
-      <form className="row-now  g-3 needs-validation p-5 m-5" noValidate>
-        <div className="col-md-4">
-          <label htmlFor="validationCustom01" className="form-label">
-            First name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="validationCustom01"
-            defaultValue="Mark"
-            required
-          />
-          <div className="valid-feedback">Looks good!</div>
+      <form className='create-form' onSubmit={handleSubmit}>
+        <div>
+          <label>Nombre</label>
+          <input type="text" placeholder='Nombre' value={Nombre} onChange={(e) => SetNombre(e.target.value)} />
         </div>
-        <div className="col-md-4">
-          <label htmlFor="validationCustom02" className="form-label">
-            Last name
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="validationCustom02"
-            defaultValue="Otto"
-            required
-          />
-          <div className="valid-feedback">Looks good!</div>
+        <div>
+          <label>Descripcion</label>
+          <input type="text" placeholder='Descripcion' value={Descripcion} onChange={(e) => SetDescripcion(e.target.value)} />
         </div>
-        <div className="col-md-4">
-          <label htmlFor="validationCustomUsername" className="form-label">
-            Username
-          </label>
-          <div className="input-group has-validation">
-            <span className="input-group-text" id="inputGroupPrepend">
-              @
-            </span>
-            <input
-              type="text"
-              className="form-control"
-              id="validationCustomUsername"
-              aria-describedby="inputGroupPrepend"
-              required
-            />
-            <div className="invalid-feedback">Please choose a username.</div>
-          </div>
+        <div>
+          <label>Dificultad</label>
+          <input type="text" placeholder='Dificultad' value={Dificultad} onChange={(e) => SetDificultad(e.target.value)} />
         </div>
-        <div className="col-md-6">
-          <label htmlFor="validationCustom03" className="form-label">
-            City
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="validationCustom03"
-            required
-          />
-          <div className="invalid-feedback">Please provide a valid city.</div>
+        <div>
+          <label>FechaInicio</label>
+          <input type="date" placeholder='FechaInicio' value={FechaInicio} onChange={(e) => SetFechaInicio(e.target.value)} />
         </div>
-        <div className="col-md-3">
-          <label htmlFor="validationCustom04" className="form-label">
-            State
-          </label>
-          <select className="form-select" id="validationCustom04" required>
-            <option selected disabled value="">
-              Choose...
-            </option>
-            <option>...</option>
-          </select>
-          <div className="invalid-feedback">Please select a valid state.</div>
+        <div>
+          <label>FechaTermino</label>
+          <input type="date" placeholder='FechaTermino' value={FechaTermino} onChange={(e) => SetFechaTermino(e.target.value)} />
         </div>
-        <div className="col-md-3">
-          <label htmlFor="validationCustom05" className="form-label">
-            Zip
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="validationCustom05"
-            required
-          />
-          <div className="invalid-feedback">Please provide a valid zip.</div>
+        <div>
+          <label>Metodologia</label>
+          <input type="text" placeholder='Metodologia' value={Metodologia} onChange={(e) => SetMetodologia(e.target.value)} />
         </div>
-        <div className="col-12">
-          <div className="form-check">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              value=""
-              id="invalidCheck"
-              required
-            />
-            <label className="form-check-label" htmlFor="invalidCheck">
-              Agree to terms and conditions
-            </label>
-            <div className="invalid-feedback">
-              You must agree before submitting.
-            </div>
-          </div>
+        <div>
+          <label>Cumplimiento</label>
+          <input type="number" placeholder='Cumplimiento' value={Cumplimiento} onChange={(e) => SetCumplimiento(e.target.value)} />
         </div>
-        <div className="col-12">
-          <button className="btn btn-primary" type="submit">
-            Submit form
-          </button>
+        <div>
+          <label>Area</label>
+          <input type="text" placeholder='Area' value={Area} onChange={(e) => SetArea(e.target.value)} />
         </div>
+        <button type="submit">Guardar</button>
       </form>
     </div>
   );
