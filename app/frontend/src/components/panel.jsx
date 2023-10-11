@@ -56,7 +56,7 @@ export default function Panel() {
           ellos para obtener más información.
         </p>
       </div>
-      <div className="table px-5">
+      <div className="table">
         <div className="row-container">
           <div className="row-header indice">
             <div className="cell">Nombre</div>

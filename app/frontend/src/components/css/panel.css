@@ -6,7 +6,10 @@ a {
 
 .table {
   overflow: auto;
-  max-height: 620px
+  max-height: 620px;
+  width: 95%;
+  padding: 0 15px;
+  margin: 0 auto;
 }
 
 .row-container {
@@ -105,6 +108,7 @@ a {
 
 .btn-container{
   text-align: center;
+  margin-top: 20px;
   height: 56px;
 }
 
@@ -133,4 +137,7 @@ a {
     max-height: 340px;
   }
   
+  .btn-container{
+    margin-top: 10px;
+  }
 }
