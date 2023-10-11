@@ -83,6 +83,13 @@ a {
   filter: hue-rotate(240deg); /* Cambia el color a azul */
 }
 
+
+
+.no-ver{
+  display: none;
+}
+
+
 /* Estilos responsivos */
 @media (max-width: 768px) {
   .row {

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { HiTrash } from "react-icons/hi";
 import formatDate from "../helpers/dateFormating";
 
 export default function MetasContent({ apiData, tareas, toggleCheckbox, deletingTask }) {
@@ -59,7 +58,6 @@ export default function MetasContent({ apiData, tareas, toggleCheckbox, deleting
 
                       onClick={() => {deletingTask(tarea._id)}}
                     >
-                      <HiTrash />
                     </button>
                   </td>
                 </tr>

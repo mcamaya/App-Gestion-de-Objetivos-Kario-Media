@@ -42,7 +42,9 @@ export default function Panel() {
   return (
     <div style={{ width: "100%" }}>
       <div className="d-flex justify-content-center mt-3">
-        <h1>Panel de Indicadores</h1>
+        <h1 id="text-home" className="ver">Panel de Indicadores</h1>
+        <h1 id="text-delete" className="no-ver">seleciona el que quiere borrar</h1>
+
       </div>
       <div className="d-flex justify-content-center">
         <p style={{ textAlign: "center" }}>
@@ -66,7 +68,7 @@ export default function Panel() {
         </div>
         {data.length > 0 ? (
           data.map((item, index) => (
-            <Link to="/meta-dashboard" onClick={() => handleClick(item._id)}  key={index}>
+            <Link id='remover' to="/meta-dashboard" onClick={() => handleClick(item._id)}  key={index}>
               <div className="row-container hover">
                 <div className="row">
                   <div className="cell hover">{item.nombre}</div>

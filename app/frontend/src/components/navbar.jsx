@@ -13,6 +13,27 @@ import "../components/css/nav.css";
 
 export default function Navbar() {
   const imagen = localStorage.getItem('userImage');
+
+    const displayBorrar=()=>{
+    const textHome = document.querySelector('#text-home')
+    const textDelete = document.querySelector('#text-delete')
+    const linkBorrar = document.querySelector('#remover')
+
+    
+        if (textHome.classList.contains('ver')) {
+          textHome.classList.remove('ver')
+          textHome.classList.add('no-ver')
+        }
+    
+        if (textDelete.classList.contains('no-ver')) {
+          textDelete.classList.remove('no-ver')
+          textDelete.classList.add('ver')
+        }
+
+
+
+    }
+    
   return (
     <div style={{ width: "100%" }}>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -53,6 +74,7 @@ export default function Navbar() {
                   className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
                   href="#"
+                  onClick={displayBorrar}
                 >
                   <img className="nav-logo" src={eliminar} alt="" /> Eliminar
                 </a>
