@@ -7,7 +7,7 @@ import isAdminRole from "../middlewares/isAdminRole.js";
 
 const router = Router();
 
-router.get("/", verifyToken, service.getRoles);
+router.get("/", service.getRoles);
 router.get(
   "/:id",
   [verifyToken, validateSchema(schemas.getRolesSchema, "params")],

@@ -27,7 +27,9 @@ const UsuarioSchema = new Schema({
     default: ["USER"],
     required: true,
   },
-  imagen: String,
+  imagen: {
+    type: String,
+  },
   notificacion:[
     {
       mensaje: {
