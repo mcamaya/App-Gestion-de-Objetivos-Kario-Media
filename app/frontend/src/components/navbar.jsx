@@ -99,7 +99,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <a className="nav-link active" aria-current="page" href="#">
-                  <img className="imagen-nav tarea-foto-integrante" src={`${imagen}`} alt="" />
+                  <img className="imagen-nav" src={`${imagen}`} alt="" />
                 </a>
               </li>
             </ul>
