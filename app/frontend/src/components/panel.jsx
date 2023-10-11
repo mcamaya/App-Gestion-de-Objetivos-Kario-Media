@@ -100,6 +100,11 @@ export default function Panel() {
         ) : (
           <p>Cargando datos...</p>
         )}
+        <div className='btn-container'>
+          <Link to="/home/formulario">
+            <button id='crear-metas'> Añadir Elementos </button>
+          </Link>
+        </div>
       </div>
     </div>
   );

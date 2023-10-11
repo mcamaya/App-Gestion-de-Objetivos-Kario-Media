@@ -92,3 +92,19 @@ a {
     flex: 1; /* Las celdas ocuparán el ancho completo en pantallas pequeñas */
   }
 }
+
+.btn-container{
+  text-align: center;
+}
+
+#crear-metas{
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  background-color: #FF6F2C;
+  border-style: none;
+  border-radius: 35px;
+  width: 280px;
+  height: 60px;
+  margin-top: 20px;
+}

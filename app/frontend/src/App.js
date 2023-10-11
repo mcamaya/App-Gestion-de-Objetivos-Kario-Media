@@ -28,14 +28,10 @@ function App() {
             <Switch>
               <Route exact path="/home">
                 <Panel />
-                <Link to="/home/formulario">
-                  <button> IR A OTRO LADO </button>
-                </Link>
+                
               </Route>
               <Route exact path="/tasks">
-                <Link to="/home">
-                  <button> IR A home </button>
-                </Link>
+
               </Route>
               <Route exact path="/home/formulario">
                 <PanelFormulario />
