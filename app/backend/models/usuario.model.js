@@ -1,6 +1,5 @@
 import { Schema, model } from "mongoose";
 import bcryptjs from "bcryptjs";
-import imagen_default from "../config/imagen_default";
 
 const UsuarioSchema = new Schema({
   nombre: {
@@ -30,7 +29,6 @@ const UsuarioSchema = new Schema({
   },
   imagen: {
     type: String,
-    default: imagen_default,
   },
   notificacion:[
     {
