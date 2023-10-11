@@ -20,6 +20,14 @@ export const getMetas = async (req, res, next) => {
             as: "area",
           },
         },
+        {
+          $lookup: {
+            from: "usuarios", // collection
+            localField: "tareas.integrantes",
+            foreignField: "_id",
+            as: "tareas.integrantes",
+          },
+        },
       ])
       .toArray();
     res.status(200).json(data);
@@ -41,6 +49,31 @@ export const getOneMeta = async (req, res, next) => {
             foreignField: "_id",
             as: "area",
           },
+        },
+        {$unwind: {
+          "path": "$tareas.integrantes"
+        }},
+        {
+          "$lookup": {
+            "from": "usuarios",
+            "foreignField": "_id",
+            "localField": "tareas.integrantesData",
+            "let": {
+              "Ttitulo": "$tareas.titulo",
+              "Tinstrucciones": "$tareas.instrucciones"
+            },
+            "pipeline": [
+              {
+                "$project": {
+                  "_id": 0,
+                  "tenantId": "$_id",
+                  "titulo": "$$Ttitulo",
+                  "tenant": "$$ROOT"
+                }
+              }
+            ],
+            "as": "associatedTenants"
+          }
         },
       ])
       .toArray();
@@ -107,18 +140,21 @@ export const añadirTareas = async (req, res, next) => {
   try {
     const { tareas } = req.body;
     /* validar si existen los id enviados en el campo integrantes */
-    Promise.all(
-      tareas.map(async (tarea) => {
-        tarea.integrantes.map(async (user) => {
-          if (!(await Usuario.findOne({ _id: user }))) {
-            throw boom.notFound(
-              `Integrante con ID ${user} no existe en la base de datos. Tarea ${tarea}`
-            );
+      await Promise.all(
+        tareas.map((tarea) => {
+          tarea.integrantes.map(async (user) => {
+          try {
+            if (!(await Usuario.findOne({ _id: user }))) {
+              throw boom.notFound(
+                `Integrante con ID ${user} no existe en la base de datos. Tarea ${JSON.stringify(tarea)}`
+              );
+            }
+          } catch (err) {
+            next(err);
           }
-          // Falta mandar notificación
-        });
-      })
-    ).catch((err) => next(err));
+          });
+        })
+      ).catch((err) => next(err));
     const newData = await Meta.findOneAndUpdate(
       { _id: req.params.id },
       { tareas },

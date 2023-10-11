@@ -14,10 +14,10 @@ import imgen from "../assets/img/user-image.jpg";
 export default function Navbar() {
   return (
     <div>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
+      <nav className="navbar navbar-expand-lg bg-body-tertiary">
+        <div className="container-fluid">
           <button
-            class="navbar-toggler"
+            className="navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -25,54 +25,54 @@ export default function Navbar() {
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
-            <span class="navbar-toggler-icon"></span>
+            <span className="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li class="nav-item">
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+              <li className="nav-item">
                 <a
-                  class="nav-link active grup-a d-flex align-items-center gap-2"
+                  className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
                   href="#"
                 >
                   <img className="nav-logo" src={mas} alt="" /> Agregar
                 </a>
               </li>
-              <li class="nav-item ">
+              <li className="nav-item ">
                 <a
-                  class="nav-link active grup-a d-flex align-items-center gap-2 "
+                  className="nav-link active grup-a d-flex align-items-center gap-2 "
                   aria-current="page"
                   href="#"
                 >
                   <img className="nav-logo" src={refres} alt="" /> Referescar
                 </a>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link active grup-a d-flex align-items-center gap-2"
+                  className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
                   href="#"
                 >
                   <img className="nav-logo" src={eliminar} alt="" /> Eliminar
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active grup-a" aria-current="page" href="#">
+              <li className="nav-item">
+                <a className="nav-link active grup-a" aria-current="page" href="#">
                   <img className="logo-nav " src={logo} alt="" />
                 </a>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link active grup-a d-flex align-items-center gap-2"
+                  className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
                   href="#"
                 >
                   <img className="nav-logo" src={repor} alt="" /> Reportar
                 </a>
               </li>
-              <li class="nav-item">
+              <li className="nav-item">
                 <a
-                  class="nav-link active grup-a d-flex align-items-center gap-2"
+                  className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
                   href="#"
                 >
@@ -81,19 +81,19 @@ export default function Navbar() {
               </li>
             </ul>
 
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
-              <li class="nav-item ">
-                <a class="nav-link active" aria-current="page" href="#">
+            <ul className="navbar-nav ms-auto mb-2 mb-lg-0 d-flex align-items-center">
+              <li className="nav-item ">
+                <a className="nav-link active" aria-current="page" href="#">
                   <img className="ajustes-nav" src={ajustes} alt="" />
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active " aria-current="page" href="#">
+              <li className="nav-item">
+                <a className="nav-link active " aria-current="page" href="#">
                   <img className="ajustes-nav" src={campana} alt="" />
                 </a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link active " aria-current="page" href="#">
+              <li className="nav-item">
+                <a className="nav-link active " aria-current="page" href="#">
                   <img className="imagen-nav" src={imgen} alt="" />
                 </a>
               </li>

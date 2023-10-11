@@ -42,15 +42,10 @@
   overflow: hidden;
 }
 
-.user-loged img{
-  width: 118px;
-  height: 118px;
-}
-
 .user-image {
   object-fit: cover;
-  height: auto;
-  width: auto;
+  width: 118px;
+  height: 118px;
 }
 
 .bienvenida-loged{
