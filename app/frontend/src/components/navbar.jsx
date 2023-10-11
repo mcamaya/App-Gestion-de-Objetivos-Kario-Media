@@ -13,7 +13,7 @@ import imgen from "../assets/img/user-image.jpg";
 
 export default function Navbar() {
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
           <button
@@ -101,6 +101,7 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+      <hr />
     </div>
   );
 }

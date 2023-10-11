@@ -22,8 +22,15 @@
   height: 50px;
   border-radius: 50%;
 }
+.bg-body-tertiary {
+  background-color: transparent !important;
+}
 
-@media (min-width: 1920px) {
+hr {
+  margin: 0;
+}
+
+@media (min-width: 1800px) {
   .grup-a {
     margin: 0 4em;
   }
