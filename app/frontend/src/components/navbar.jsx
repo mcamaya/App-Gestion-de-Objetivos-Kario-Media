@@ -61,7 +61,7 @@ export default function Navbar() {
                 <a
                   className="nav-link active grup-a"
                   aria-current="page"
-                  href="#"
+                  href="/home"
                 >
                   <img className="logo-nav" src={logo} alt="" />
                 </a>
