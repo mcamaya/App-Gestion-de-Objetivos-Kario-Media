@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {HiTrash} from "react-icons/hi2"
 import formatDate from "../helpers/dateFormating";
 
 export default function MetasContent({
