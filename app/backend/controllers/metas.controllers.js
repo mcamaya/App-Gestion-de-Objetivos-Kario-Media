@@ -32,47 +32,45 @@ export const getOneMeta = async (req, res, next) => {
   try {
     const oid = new ObjectId(req.params.id);
     const [data] = await metas
-      .aggregate(
-        [
-          {
-            $match: {
-              _id: oid 
-            }
+      .aggregate([
+        {
+          $match: {
+            _id: oid,
           },
-          {
-            $unwind: {
-              path: "$tareas",
-            }
+        },
+        {
+          $unwind: {
+            path: "$tareas",
           },
-          {
-            $lookup: {
-              from: "usuarios",
-              foreignField: "_id",
-              localField: "tareas.integrantes",
-              as: "tareas.integranteData",
-            }
+        },
+        {
+          $lookup: {
+            from: "usuarios",
+            foreignField: "_id",
+            localField: "tareas.integrantes",
+            as: "tareas.integranteData",
           },
-          {
-            $unwind: {
-              path: "$tareas.integranteData",
-            }
+        },
+        {
+          $unwind: {
+            path: "$tareas.integranteData",
           },
-          {
-            $group: {
-              _id: "$_id",
-              nombre: { $first: "$nombre" },
-              descripcion: { $first: "$descripcion" },
-              dificultad: { $first: "$dificultad" },
-              fechaInicio: { $first: "$fechaInicio" },
-              fechaFinal: { $first: "$fechaFinal" },
-              metodologia: { $first: "$metodologia" },
-              cumplimiento: { $first: "$cumplimiento" },
-              tareas: { $push: "$tareas" },
-              area: { $first: "$area" },
-            }
-          }
-        ]
-      )
+        },
+        {
+          $group: {
+            _id: "$_id",
+            nombre: { $first: "$nombre" },
+            descripcion: { $first: "$descripcion" },
+            dificultad: { $first: "$dificultad" },
+            fechaInicio: { $first: "$fechaInicio" },
+            fechaFinal: { $first: "$fechaFinal" },
+            metodologia: { $first: "$metodologia" },
+            cumplimiento: { $first: "$cumplimiento" },
+            tareas: { $push: "$tareas" },
+            area: { $first: "$area" },
+          },
+        },
+      ])
       .toArray();
     res.status(200).json(data);
   } catch (err) {
@@ -136,26 +134,31 @@ export const editarMeta = async (req, res, next) => {
 export const añadirTareas = async (req, res, next) => {
   try {
     const oid = req.params.id;
-    const meta = await Meta.findById({ _id : oid})
+    const meta = await Meta.findById({ _id: oid });
     const { tareas } = req.body;
-    const promises = []
+    const promises = [];
     /* validar si existen los id enviados en el campo integrantes */
     tareas.forEach((tarea) => {
       tarea.integrantes.forEach(async (userId) => {
-        const user = await Usuario.findById({_id: userId});
+        const user = await Usuario.findById({ _id: userId });
         try {
-          if(!user){
+          if (!user) {
             throw boom.notFound(
-              `Integrante con ID ${userId} no existe en la base de datos. Tarea ${tarea}`)
+              `Integrante con ID ${userId} no existe en la base de datos. Tarea ${tarea}`
+            );
           }
         } catch (err) {
-          next(err)
+          next(err);
         }
         //Falta mandar la notificacion
-        user.notificacion.push({
-          mensaje: `Se le ha asignado la siguiente tarea: "${tarea.titulo}" de la meta "${meta.nombre}" .`,
-          estado: true,
-        });
+        try {
+          user.notificacion.push({
+            mensaje: `Se le ha asignado la siguiente tarea: "${tarea.titulo}" de la meta "${meta.nombre}" .`,
+            estado: true,
+          });
+        } catch (err) {
+          next(err);
+        }
         promises.push(user.save());
       });
     });
