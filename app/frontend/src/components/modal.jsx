@@ -1,61 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
-  Button,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Container,
   Row,
-  Col
+  Col,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button
 } from "reactstrap";
 
-import PageForm from "./form";
+const PageForm = () => {
+  const [paises, setPaises] = useState([]);
+  const apiUrl = `http://localhost:9000/pais`;
 
-const JsComponents = (props) => {
-  const [modal, setModal] = useState(false);
-
-  const toggle = () => {
-    setModal(!modal);
-  };
+  useEffect(() => {
+    // Add your API request logic here
+  }, []); // The empty array as the second argument means this effect runs only once
 
   return (
     <div>
-      <div className="m-3 ms-0" id="js-component"></div>
-      <Container>
-        <Row className="m-b-40">
-          <Col md="6" className="d-flex flex-column">
-            <Button
-              type="button"
-              onClick={toggle.bind(null)}
-              className="btn btn-block waves-effect waves-light btn-success m-b-11 text-black "
-            >
-              Agregar Biblioteca +
-            </Button>
-            <Modal
-              size="lg"
-              isOpen={modal}
-              toggle={toggle.bind(null)}
-              className={props.className}
-            >
-              <ModalHeader toggle={toggle.bind(null)}>
-                {" "}
-                Nueva Biblioteca
-              </ModalHeader>
-              <ModalBody>
-                <PageForm></PageForm>{" "}
-              </ModalBody>
-              <ModalFooter>
-                <Button color="secondary" onClick={toggle.bind(null)}>
-                  Cancel
-                </Button>
-              </ModalFooter>
-            </Modal>
-          </Col>
-        </Row>
-      </Container>
+      <div className="forms-component" id="forms-component">
+        <Container>
+          <Row>
+            <Col md="12">
+              <Form className="row">
+                <FormGroup className="col-md-6">
+                  <Label htmlFor="name">Usuario</Label>
+                  <Input
+                    type="text"
+                    className="form-control"
+                    id="name"
+                    placeholder="Enter Username"
+                  />
+                </FormGroup>
+                <FormGroup className="col-md-6">
+                  <Label htmlFor="email">Email Address</Label>
+                  <Input
+                    type="email"
+                    className="form-control"
+                    id="email"
+                    placeholder="Enter email"
+                  />
+                </FormGroup>
+                <FormGroup className="col-md-6">
+                  <Label htmlFor="password">Juego</Label>
+                  <Input
+                    type="password"
+                    className="form-control"
+                    id="password"
+                    placeholder="Password"
+                  />
+                </FormGroup>
+                <FormGroup className="col-md-6">
+                  <Label htmlFor="confirmpwd">Clasificacion</Label>
+                  <Input
+                    type="password"
+                    className="form-control"
+                    id="confirmpwd"
+                    placeholder="Confirm Password"
+                  />
+                </FormGroup>
+                <Col md="12">
+                  <Button
+                    type="submit"
+                    className="btn btn-success waves-effect waves-light m-r-10"
+                  >
+                    Submit
+                  </Button>
+                </Col>
+              </Form>
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </div>
   );
 };
 
-export default JsComponents;
+export default PageForm;

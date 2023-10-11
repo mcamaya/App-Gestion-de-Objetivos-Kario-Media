@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "../components/css/panel.css";
+import ModalForm from "../components/modal.jsx";
+
 import incompleta from "../assets/img/grafica-incompleto.svg";
 import proceso from "../assets/img/grafica-proceso.svg";
 import completa from "../assets/img/grafica-completo.svg";
@@ -47,6 +49,7 @@ export default function Panel() {
     <div style={{ width: "100%" }}>
       <div className="d-flex justify-content-center mt-3">
         <h1>Panel de Indicadores</h1>
+       
       </div>
       <div className="d-flex justify-content-center">
         <p style={{ textAlign: "center" }}>
