@@ -42,18 +42,56 @@ export default function Panel() {
     localStorage.setItem("IDMeta", id);
   };
 
+  const displayNormal=()=>{
+    const textHome = document.querySelector('#text-home')
+    const textDelete = document.querySelector('#text-delete')
+    const textInfo = document.querySelector('#text-info')
+    const textInfoDelete = document.querySelector('#text-info-delete')
+    const btnCrearMetas = document.querySelector('#crear-metas')
+    const btnCancel = document.querySelector('#cancelar-borrar')
+    const linkBorrar = document.querySelector('#remover')
+
+    
+        if (textHome.classList.contains('ver')) {
+          textHome.classList.replace('ver', 'no-ver')
+          textDelete.classList.replace('no-ver', 'ver')
+        } else {
+          textHome.classList.replace('no-ver', 'ver')
+          textDelete.classList.replace('ver', 'no-ver')
+        }
+
+        if (textInfo.classList.contains('ver')) {
+          textInfo.classList.replace('ver', 'no-ver')
+          textInfoDelete.classList.replace('no-ver', 'ver')
+        } else {
+          textInfo.classList.replace('no-ver', 'ver')
+          textInfoDelete.classList.replace('ver', 'no-ver')
+        }
+
+        if (btnCrearMetas.classList.contains('ver')) {
+          btnCrearMetas.classList.replace('ver', 'no-ver')
+          btnCancel.classList.replace('no-ver', 'ver')
+        } else {
+          btnCrearMetas.classList.replace('no-ver', 'ver')
+          btnCancel.classList.replace('ver', 'no-ver')
+        }
+    }
+
   return (
     <div style={{ width: "100%" }}>
       <div className="d-flex justify-content-center mt-3">
         <h1 id="text-home" className="ver">Panel de Indicadores</h1>
-        <h1 id="text-delete" className="no-ver">seleciona el que quiere borrar</h1>
-
+        <h1 id="text-delete" className="no-ver">Panel de Borrado</h1>
       </div>
       <div className="d-flex justify-content-center">
-        <p id="text-info" style={{ textAlign: "center" }}>
+        <p id="text-info" className="ver" style={{ textAlign: "center" }}>
           Aquí puedes visualizar los indicadores propuestos y añadidos por tu
           equipo de trabajo. Si quieres ver más detalles, da clic en uno de
           ellos para obtener más información.
+        </p>
+        <p id="text-info-delete" className="no-ver" style={{ textAlign: "center" }}>
+          Aquí puedes eliminar los indicadores propuestos y añadidos por tu
+          equipo de trabajo. Da click en el que desees borrar.
         </p>
       </div>
       <div className="table">
@@ -108,8 +146,9 @@ export default function Panel() {
       </div>
         <div className='btn-container'>
           <Link to="/home/formulario">
-            <button id='crear-metas'> Añadir Elementos </button>
+            <button id='crear-metas' className="ver"> Añadir Elementos </button>
           </Link>
+            <button id='cancelar-borrar' className="no-ver" onClick={displayNormal}> Cancelar </button>
         </div>
     </div>
   );

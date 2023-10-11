@@ -1,4 +1,5 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import logo from "../assets/img/kario.png";
 import mas from "../assets/img/mas.svg";
 import refres from "../assets/img/res.svg";
@@ -7,33 +8,54 @@ import repor from "../assets/img/error.svg";
 import ayuda from "../assets/img/question.svg";
 import campana from "../assets/img/campana.svg";
 import ajustes from "../assets/img/ajustes.svg";
-//import imgen from "../assets/img/user-image.jpg";
 
 import "../components/css/nav.css";
 
 export default function Navbar() {
-  const imagen = localStorage.getItem('userImage');
+  const imagen = localStorage.getItem("userImage");
+  const history = useHistory();
+  
+  const displayBorrar = () => {
+    const textHome = document.querySelector("#text-home");
+    const textDelete = document.querySelector("#text-delete");
+    const textInfo = document.querySelector("#text-info");
+    const textInfoDelete = document.querySelector("#text-info-delete");
+    const btnCrearMetas = document.querySelector("#crear-metas");
+    const btnCancel = document.querySelector("#cancelar-borrar");
+    const linkBorrar = document.querySelector("#remover");
 
-    const displayBorrar=()=>{
-    const textHome = document.querySelector('#text-home')
-    const textDelete = document.querySelector('#text-delete')
-    const linkBorrar = document.querySelector('#remover')
-
-    
-        if (textHome.classList.contains('ver')) {
-          textHome.classList.remove('ver')
-          textHome.classList.add('no-ver')
-        }
-    
-        if (textDelete.classList.contains('no-ver')) {
-          textDelete.classList.remove('no-ver')
-          textDelete.classList.add('ver')
-        }
-
-
-
+    if (textHome.classList.contains("ver")) {
+      textHome.classList.replace("ver", "no-ver");
+      textDelete.classList.replace("no-ver", "ver");
+    } else {
+      textHome.classList.replace("no-ver", "ver");
+      textDelete.classList.replace("ver", "no-ver");
     }
-    
+
+    if (textInfo.classList.contains("ver")) {
+      textInfo.classList.replace("ver", "no-ver");
+      textInfoDelete.classList.replace("no-ver", "ver");
+    } else {
+      textInfo.classList.replace("no-ver", "ver");
+      textInfoDelete.classList.replace("ver", "no-ver");
+    }
+
+    if (btnCrearMetas.classList.contains("ver")) {
+      btnCrearMetas.classList.replace("ver", "no-ver");
+      btnCancel.classList.replace("no-ver", "ver");
+    } else {
+      btnCrearMetas.classList.replace("no-ver", "ver");
+      btnCancel.classList.replace("ver", "no-ver");
+    }
+  };
+
+  const handleEliminarClick = () => {
+    if (history.location.pathname === "/home") {
+      // Coloca aquí la lógica que deseas ejecutar cuando la ruta es "/home"
+      displayBorrar();
+    }
+  };
+
   return (
     <div style={{ width: "100%" }}>
       <nav className="navbar navbar-expand-lg bg-body-tertiary">
@@ -74,7 +96,7 @@ export default function Navbar() {
                   className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
                   href="#"
-                  onClick={displayBorrar}
+                  onClick={handleEliminarClick}
                 >
                   <img className="nav-logo" src={eliminar} alt="" /> Eliminar
                 </a>

@@ -123,6 +123,17 @@ a {
   height: 100%;
 }
 
+#cancelar-borrar{
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  background-color: #4CAEA8;
+  border-style: none;
+  border-radius: 35px;
+  width: 280px;
+  height: 100%;
+}
+
 @media (max-width: 1570px) and (max-height: 720px) {
   #text-home{
     font-size: 2rem;

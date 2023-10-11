@@ -42,12 +42,16 @@
     margin-top: 20px;
 }
 
-.input-form-container input, select{
+.input-form-container input{
     border-radius: 5px;
     border-style: none;
     height: 38px;
     padding: 0 8px;
     background-color: #E8E5E5;
+}
+
+.input-form-container select{
+    height: 35px;
 }
 
 .input-form-container textarea{
