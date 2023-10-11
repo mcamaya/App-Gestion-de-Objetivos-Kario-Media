@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
-import { useLocation } from "react-router-dom";
-import { BrowserRouter as Link, useHistory } from 'react-router-dom';
+import { BrowserRouter as Link, useHistory, useLocation } from 'react-router-dom';
 import './css/saludo.css'
 import logo2 from '../assets/img/kario-media.png';
 import logo from '../assets/img/kario.png';
