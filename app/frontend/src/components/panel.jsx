@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import "../components/css/panel.css";
+import urlApi from "../data/urlApi";
 
 import incompleta from "../assets/img/grafica-incompleto.svg";
 import proceso from "../assets/img/grafica-proceso.svg";
@@ -8,11 +9,13 @@ import completa from "../assets/img/grafica-completo.svg";
 import formatDate from "../helpers/dateFormating";
 
 export default function Panel() {
-  const [data, setData] = useState([]);
-  const apiUrl = "http://localhost:8000/api/v1/metas";
+  const history = useHistory();
+  const token = localStorage.getItem("x-auth-token");
+  const [data, setData] = useState([])
 
   useEffect(() => {
-    fetch(apiUrl)
+    if (!token) return history.push("/");
+    fetch(`${urlApi}/metas`)
       .then((response) => response.json())
       .then((data) => {
         setData(data);

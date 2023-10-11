@@ -1,7 +1,13 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import formatDate from "../helpers/dateFormating";
 
-export default function MetasContent({ apiData, tareas, toggleCheckbox, deletingTask }) {
+export default function MetasContent({
+  apiData,
+  tareas,
+  toggleCheckbox,
+  deletingTask,
+}) {
   const [isDeleting, setIsDeleting] = useState(false);
 
   return (
@@ -55,9 +61,11 @@ export default function MetasContent({ apiData, tareas, toggleCheckbox, deleting
                       className={`deleting-button ${
                         isDeleting ? "" : "dont-show"
                       }`}
-
-                      onClick={() => {deletingTask(tarea._id)}}
+                      onClick={() => {
+                        deletingTask(tarea._id);
+                      }}
                     >
+                      <HiTrash />
                     </button>
                   </td>
                 </tr>
@@ -71,7 +79,9 @@ export default function MetasContent({ apiData, tareas, toggleCheckbox, deleting
           <h2>Description</h2>
           <h6>{apiData.descripcion}</h6>
         </div>
-        <button className="añadir-button">Añadir Tarea</button>
+        <Link to="/meta-dashboard/añadir">
+          <button className="añadir-button">Añadir Tarea</button>
+        </Link>
         <button
           className="eliminar-button"
           onClick={() => setIsDeleting(!isDeleting)}

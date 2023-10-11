@@ -7,6 +7,7 @@ import Navbar from './components/navbar.jsx';
 import Panel from './components/panel.jsx';
 import MetaDashboard from './components/metaDashboard';
 import PanelFormulario from "./components/PanelFormulario.jsx";
+import AñadirTareas from './components/añadirTareas';
 
 function App() {
   return (
@@ -29,8 +30,8 @@ function App() {
               <Route exact path="/home">
                 <Panel />
               </Route>
-              <Route exact path="/tasks">
-
+              <Route exact path="/meta-dashboard/añadir">
+                <AñadirTareas />
               </Route>
               <Route exact path="/home/formulario">
                 <PanelFormulario />

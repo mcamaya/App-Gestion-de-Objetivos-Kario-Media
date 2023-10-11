@@ -16,7 +16,7 @@ export default function MetaDashboard() {
 
   /* fetch API data */
   useEffect(() => {
-    if (!token) return history.push("/login");
+    if (!token) return history.push("/");
     fetch(`${urlApi}/metas/${metaId}`, {
       method: "GET",
       headers: {
@@ -97,6 +97,14 @@ export default function MetaDashboard() {
         .catch((err) => alert(err));
     }
   };
+
+  const addNewTask = (newTask) => {
+    let newTareas = [...tareas];
+    newTareas.forEach((e, i) => {
+      delete newTareas[i].integranteData;
+      delete newTareas[i]._id;
+    });
+  }
 
   if (!apiData) {
     // esperar a recibir respuesta para renderizar

@@ -27,6 +27,8 @@
   border-radius: 10px;
   background: #d3fec0;
   padding: 15px;
+  min-height: 30vh;
+  max-height: fit-content;
 }
 
 .aside .añadir-button {
