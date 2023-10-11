@@ -7,7 +7,7 @@ import isAdminRole from "../middlewares/isAdminRole.js";
 
 const router = Router();
 
-router.get("/",verifyToken, service.getUsuarios);
+router.get("/", verifyToken, service.getUsuarios);
 
 router.get("/no-admin", verifyToken, service.getNoAdmins); 
 router.get(
