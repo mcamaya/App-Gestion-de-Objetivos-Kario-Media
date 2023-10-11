@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { HiTrash } from "react-icons/hi";
 import formatDate from "../helpers/dateFormating";
 
-export default function MetasContent({ apiData, tareas, toggleCheckbox }) {
+export default function MetasContent({ apiData, tareas, toggleCheckbox, deletingTask }) {
+  const [isDeleting, setIsDeleting] = useState(false);
 
   return (
     <>
@@ -11,7 +13,7 @@ export default function MetasContent({ apiData, tareas, toggleCheckbox }) {
           <h6>Fecha de inicio: {formatDate(apiData.fechaInicio)}</h6>
           <h6>Fecha final: {formatDate(apiData.fechaFinal)}</h6>
         </div>
-        <div className="meta-tasks">
+        <div className={`meta-tasks ${isDeleting ? "eliminando-layout" : ""}`}>
           <table className="tasks-table">
             <thead>
               <tr className="metas-table-row">
@@ -21,6 +23,7 @@ export default function MetasContent({ apiData, tareas, toggleCheckbox }) {
                 <th>Horas</th>
                 <th>Estado</th>
                 <th>Check</th>
+                <th className={`${isDeleting ? "" : "dont-show"}`}>Eliminar</th>
               </tr>
             </thead>
             <tbody>
@@ -48,6 +51,17 @@ export default function MetasContent({ apiData, tareas, toggleCheckbox }) {
                       checked={tarea.check ? true : false}
                     />
                   </td>
+                  <td>
+                    <button
+                      className={`deleting-button ${
+                        isDeleting ? "" : "dont-show"
+                      }`}
+
+                      onClick={() => {deletingTask(tarea._id)}}
+                    >
+                      <HiTrash />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -59,7 +73,13 @@ export default function MetasContent({ apiData, tareas, toggleCheckbox }) {
           <h2>Description</h2>
           <h6>{apiData.descripcion}</h6>
         </div>
-        <button>Añadir Tarea</button>
+        <button className="añadir-button">Añadir Tarea</button>
+        <button
+          className="eliminar-button"
+          onClick={() => setIsDeleting(!isDeleting)}
+        >
+          Eliminar Tareas
+        </button>
       </div>
     </>
   );
