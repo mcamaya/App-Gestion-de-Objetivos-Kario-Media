@@ -7,11 +7,12 @@ import isAdminRole from "../middlewares/isAdminRole.js";
 
 const router = Router();
 
-router.get("/", verifyToken, service.getUsuarios);
-router.get("/no-admin", verifyToken, service.getNoAdmins);
+router.get("/",verifyToken, service.getUsuarios);
+
+router.get("/no-admin", verifyToken, service.getNoAdmins); 
 router.get(
   "/:id",
-  [verifyToken, validateSchema(schemas.getUsuarioSchema, "params")],
+[verifyToken, validateSchema(schemas.getUsuarioSchema, "params")], 
   service.getOneUsuario
 );
 router.post(

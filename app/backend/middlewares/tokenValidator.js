@@ -18,7 +18,7 @@ const verifyToken = async (req = request, res = response, next) => {
     next();
   } catch (err) {
     next(err);
-  }
+  } 
 };
 
 export default verifyToken;
