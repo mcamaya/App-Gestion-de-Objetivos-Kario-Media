@@ -83,3 +83,10 @@
       opacity: 0;
     }
   }
+
+  @media (max-width: 1570px){
+    .saludo-loged{
+      height: 440px;
+      width: 720px;
+    }
+  }
