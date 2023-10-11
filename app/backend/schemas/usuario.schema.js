@@ -17,18 +17,24 @@ export const createUsuarioSchema = Joi.object({
   nombre: nombre.required(),
   email: email.required(),
   password: password.required(),
-  imagen,
   rol,
   estado
+});
+
+export const añadirPhoto = Joi.object({
+  imagen,
 });
 
 export const updateUsuarioSchema = Joi.object({
   nombre,
   email,
   password,
-  imagen,
   rol,
   estado
+});
+
+export const updatePhoto = Joi.object({
+  imagen,
 });
 
 export const loginSchema = Joi.object({
