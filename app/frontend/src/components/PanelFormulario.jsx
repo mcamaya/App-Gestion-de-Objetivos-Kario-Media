@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from "axios";
-import {useHistory} from 'react-router-dom';
+import {useHistory, Link} from 'react-router-dom';
+import './css/formularioCreate.css'
 
 const Formulario = () => {
   let history = useHistory();
@@ -57,50 +58,74 @@ const Formulario = () => {
   }
 
   return (
-    <div>
-      <form className='create-form' onSubmit={handleSubmit}>
-        <div>
-          <label>nombre</label>
-          <input type="text" placeholder='nombre' value={nombre} onChange={(e) => Setnombre(e.target.value)} />
-        </div>
-        <div>
-          <label>descripcion</label>
-          <input type="text" placeholder='descripcion' value={descripcion} onChange={(e) => Setdescripcion(e.target.value)} />
-        </div>
-        <div>
-          <label>dificultad</label>
-          <select name="dificultad" id="dificultad" value={dificultad} onChange={(e) => Setdificultad(e.target.value)}>
-            <option value="" disabled> . . . </option>
-            <option value="Baja">Baja</option>
-            <option value="Media">Media</option>
-            <option value="Alta">Alta</option>
-          </select>
-        </div>
-        <div>
-          <label>fechaInicio</label>
-          <input type="date" placeholder='fechaInicio' value={fechaInicio} onChange={(e) => SetfechaInicio(e.target.value)} />
-        </div>
-        <div>
-          <label>fechaFinal</label>
-          <input type="date" placeholder='fechaFinal' value={fechaFinal} onChange={(e) => SetfechaFinal(e.target.value)} />
-        </div>
-        <div>
-          <label>metodologia</label>
-          <input type="text" placeholder='metodologia' value={metodologia} onChange={(e) => Setmetodologia(e.target.value)} />
-        </div>
-        <div>
-          <label>area</label>
-          <select value={area} onChange={(e) => Setarea(e.target.value)}>
-            <option value="" disabled>Selecciona un área</option>
-            {areas.map(area => (
-              <option key={area._id} value={area._id}>
-                {area.nombre}
-              </option>
-            ))}
-          </select>
-        </div>
-        <button type="submit">Guardar</button>
-      </form>
+    <div className="form-create-container">
+      <div className="create-title-container">
+        <h1>Agregar Nueva Meta</h1>
+      </div>
+      <div className="create-form-container">
+        <form className='create-form' onSubmit={handleSubmit}>
+          <div className="seccion-registrar">
+            <div className="seccion-derecha">
+              <div className="input-form-container derecha">
+                <label>Nombre</label>
+                <input type="text" value={nombre} onChange={(e) => Setnombre(e.target.value)} />
+              </div>
+              <div className="input-form-container derecha">
+                <label>Descripcion</label>
+                <textarea
+                  rows="10"
+                  value={descripcion}
+                  onChange={(e) => Setdescripcion(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="seccion-izquierda">
+              <div className="input-form-container izquierda">
+                  <label>Dificultad</label>
+                  <select name="dificultad" id="dificultad" value={dificultad} onChange={(e) => Setdificultad(e.target.value)}>
+                    <option value="" disabled> . . . </option>
+                    <option value="Baja">Baja</option>
+                    <option value="Media">Media</option>
+                    <option value="Alta">Alta</option>
+                  </select>
+              </div>
+              <div className="divisor-input">
+                <div className="input-form-container izquierda">
+                    <label>Fecha de Inicio</label>
+                    <input type="date" value={fechaInicio} onChange={(e) => SetfechaInicio(e.target.value)} />
+                </div>
+                <div className="input-form-container izquierda">
+                  <label>Fecha de Finalizacion</label>
+                  <input type="date" value={fechaFinal} onChange={(e) => SetfechaFinal(e.target.value)} />
+                </div>
+              </div>
+              <div className="divisor-input">
+                <div className="input-form-container izquierda">
+                  <label>Metodologia</label>
+                  <input type="text" value={metodologia} onChange={(e) => Setmetodologia(e.target.value)} />
+                </div>
+                <div className="input-form-container izquierda">
+                  <label>Area</label>
+                  <select value={area} onChange={(e) => Setarea(e.target.value)}>
+                    <option value="" disabled>Selecciona un área</option>
+                    {areas.map(area => (
+                      <option key={area._id} value={area._id}>
+                        {area.nombre}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="btn-submit-container">
+            <button type="submit">Guardar</button>
+            <Link to="/home">
+              <button id="cancelar">Cancelar</button>
+            </Link>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

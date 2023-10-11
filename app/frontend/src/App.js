@@ -28,16 +28,12 @@ function App() {
             <Switch>
               <Route exact path="/home">
                 <Panel />
-                
               </Route>
               <Route exact path="/tasks">
 
               </Route>
               <Route exact path="/home/formulario">
                 <PanelFormulario />
-                <Link to="/home">
-                  <button> IR A home </button>
-                </Link>
               </Route>
               <Route exact path="/meta-dashboard">
                 <MetaDashboard />
