@@ -39,7 +39,7 @@ export default function Navbar() {
                   <img className="nav-logo" src={mas} alt="" /> Agregar
                 </a>
               </li>
-              <li className="nav-item">
+              <li className="nav-item" onClick={() => window.location.reload()}>
                 <a
                   className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
