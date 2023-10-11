@@ -9,7 +9,7 @@ import campana from "../assets/img/campana.svg";
 import ajustes from "../assets/img/ajustes.svg";
 import imgen from "../assets/img/user-image.jpg";
 
-import '../components/css/nav.css'
+import "../components/css/nav.css";
 
 export default function Navbar() {
   return (
@@ -33,7 +33,7 @@ export default function Navbar() {
                 <a
                   className="nav-link active grup-a d-flex align-items-center gap-2"
                   aria-current="page"
-                  href="#"
+                  href="/home/formulario"
                 >
                   <img className="nav-logo" src={mas} alt="" /> Agregar
                 </a>

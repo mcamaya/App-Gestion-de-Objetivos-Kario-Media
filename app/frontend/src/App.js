@@ -6,6 +6,7 @@ import Saludo from './components/saludo.jsx';
 import Navbar from './components/navbar.jsx';
 import Panel from './components/panel.jsx';
 import MetaDashboard from './components/metaDashboard';
+import PanelFormulario from "./components/PanelFormulario.jsx";
 
 function App() {
   return (
@@ -13,12 +14,12 @@ function App() {
       <div>
         <Switch>
           <Route exact path="/">
-            <div className='bg-login'>
+            <div className="bg-login">
               <Login />
             </div>
           </Route>
           <Route exact path="/welcome">
-            <div className='bg-login'>
+            <div className="bg-login">
               <Saludo />
             </div>
           </Route>
@@ -26,14 +27,20 @@ function App() {
             <Navbar />
             <Switch>
               <Route exact path="/home">
-                <Panel/>
-                <Link to="/taks">
-                    <button > IR A OTRO LADO </button>
+                <Panel />
+                <Link to="/home/formulario">
+                  <button> IR A OTRO LADO </button>
                 </Link>
               </Route>
               <Route exact path="/taks">
                 <Link to="/home">
-                    <button > IR A home </button>
+                  <button> IR A home </button>
+                </Link>
+              </Route>
+              <Route exact path="/home/formulario">
+                <PanelFormulario />
+                <Link to="/home">
+                  <button> IR A home </button>
                 </Link>
               </Route>
               <Route exact path="/meta-dashboard">
