@@ -63,7 +63,7 @@
 
 .btn-submit-container{
     width: 100%;
-    height: 40px;
+    height: 50px;
 }
 
 .btn-submit-container button{
@@ -75,10 +75,44 @@
     height: 100%;
     background-color: #FF6F2C;
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
 .btn-submit-container #cancelar{
     width: 44%;
     margin-left: 8%;
     background-color: #4CAEA8;
+}
+
+@media (max-width: 1570px) {
+    .form-create-container{
+        margin: 25px auto;
+        width: 85%;
+    }
+
+    .create-title-container h1{
+        font-size: 1.8rem;
+    }
+
+    .input-form-container input, select{
+        border-radius: 5px;
+        height: 32px;
+        padding: 0 8px;
+    }
+
+    .input-form-container{
+        margin-top: 10px;
+    }
+
+    .input-form-container.derecha{
+        margin-top: 10px;
+    }
+
+    .btn-submit-container{
+        height: 40px;
+    }
+
+    .btn-submit-container button{
+        margin-top: 28px;
+    }
 }
