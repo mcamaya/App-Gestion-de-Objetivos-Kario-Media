@@ -32,8 +32,8 @@ export default function MetaDashboard() {
 
   const toggleCheckbox = (tareaId) => {
     let newTareas = [...tareas];
-    let editado = newTareas.find((t) => t._id == tareaId);
-    let index = newTareas.findIndex((t) => t._id == tareaId);
+    let editado = newTareas.find((t) => t._id === tareaId);
+    let index = newTareas.findIndex((t) => t._id === tareaId);
     if (
       window.confirm(
         `Seguro que desea marcar la tarea como ${
