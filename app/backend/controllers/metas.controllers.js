@@ -49,12 +49,12 @@ export const getOneMeta = async (req, res, next) => {
               from: "usuarios",
               foreignField: "_id",
               localField: "tareas.integrantes",
-              as: "tareas.integrantes",
+              as: "tareas.integranteData",
             }
           },
           {
             $unwind: {
-              path: "$tareas.integrantes",
+              path: "$tareas.integranteData",
             }
           },
           {
@@ -143,12 +143,13 @@ export const añadirTareas = async (req, res, next) => {
     tareas.forEach((tarea) => {
       tarea.integrantes.forEach(async (userId) => {
         const user = await Usuario.findById({_id: userId});
-        if(!user){
-          return next(
-            boom.notFound(
-              `Integrante con ID ${userId} no existe en la base de datos. Tarea ${tarea}`
-            )
-          );
+        try {
+          if(!user){
+            throw boom.notFound(
+              `Integrante con ID ${userId} no existe en la base de datos. Tarea ${tarea}`)
+          }
+        } catch (err) {
+          next(err)
         }
         //Falta mandar la notificacion
         user.notificacion.push({

@@ -32,7 +32,7 @@ function App() {
                   <button> IR A OTRO LADO </button>
                 </Link>
               </Route>
-              <Route exact path="/taks">
+              <Route exact path="/tasks">
                 <Link to="/home">
                   <button> IR A home </button>
                 </Link>

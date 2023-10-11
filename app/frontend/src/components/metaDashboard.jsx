@@ -1,21 +1,21 @@
-import React, { useEffect, useState, Suspense } from "react";
-import { useHistory } from "react-router-dom";
-import Spinner from "./spinner.jsx";
+import React, { useEffect, useState, Suspense, lazy } from "react";
+import { useHistory, useLocation } from "react-router-dom";
 import urlApi from "../data/urlApi.js";
 import "./css/metaDashboard.css";
+const MetasContent = lazy(() => import("./metasContent.jsx"));
 
 export default function MetaDashboard() {
-  const idMeta = "6525fbc1b488a0d890f7e2c3";
+  const metaId = localStorage.getItem("IDMeta");
+  const token = localStorage.getItem("x-auth-token");
   const history = useHistory();
+
   const [apiData, setApiData] = useState({});
   const [tareas, setTareas] = useState([]);
-
-  console.log(apiData);
-  const token = localStorage.getItem("x-auth-token");
+  const [error, setError] = useState({});
 
   useEffect(() => {
     if (!token) return history.push("/login");
-    fetch(`${urlApi}/metas/${idMeta}`, {
+    fetch(`${urlApi}/metas/${metaId}`, {
       method: "GET",
       headers: {
         "x-auth-token": token,
@@ -29,65 +29,58 @@ export default function MetaDashboard() {
       .catch((err) => console.log(err));
   }, []);
 
+  const toggleCheckbox = (tareaId) => {
+    let newTareas = [...tareas];
+    let editado = newTareas.find((t) => t._id == tareaId);
+    let index = newTareas.findIndex((t) => t._id == tareaId);
+    if (
+      window.confirm(
+        `Seguro que desea marcar la tarea como ${
+          editado.check ? "INCOMPLETA" : "COMPLETADA"
+        }?`
+      )
+    ) {
+      editado["check"] = !editado["check"];
+      newTareas.splice(index, 1, editado);
+      console.log(tareas, newTareas);
+
+      newTareas.forEach((e, i) => {
+        delete newTareas[i].integranteData;
+        delete newTareas[i]._id;
+      });
+
+      fetch(`${urlApi}/metas/add-tasks/${metaId}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-auth-token": token,
+        },
+        body: JSON.stringify({ tareas: newTareas }),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .finally(() => window.location.reload())
+        .catch((err) => alert(err));
+    }
+  };
+
   return (
     <div className="metas-container">
       <Suspense fallback={<Loading />}>
-        <div className="metas-main-content">
-          <div className="meta-title">
-            <h2>{apiData.nombre}</h2>
-            <h6>{apiData.descripcion}</h6>
-          </div>
-          <div className="meta-tasks">
-            <table className="tasks-table">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Título</th>
-                  <th>Asignada</th>
-                  <th>Tiempo Hr</th>
-                  <th>Estado</th>
-                </tr>
-              </thead>
-              <tbody>
-                {tareas.map((tarea, index) => (
-                  <tr key={index}>
-                    <td>{index + 1}</td>
-                    <td>{tarea.titulo}</td>
-                    <td>
-                      <img
-                        src={`${tarea.integrantes.imagen}`}
-                        alt=""
-                        className="tarea-foto-integrante"
-                      />
-                    </td>
-                    <td>{tarea.tiempoHoras}</td>
-                    <td>{tarea.check ? "Finalizada" : "Sin terminar"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
+        <MetasContent
+          apiData={apiData}
+          tareas={tareas}
+          toggleCheckbox={toggleCheckbox}
+        />
       </Suspense>
-      <div className="aside">
-        <div className="aside-description">
-          <h2>Description</h2>
-          <h6>
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Laborum,
-            sed, enim fuga libero, natus provident dignissimos ullam impedit
-            porro omnis doloremque maiores? Laboriosam saepe natus, alias nemo
-            hic perspiciatis cum!
-          </h6>
-        </div>
-        <button>Añadir Tarea</button>
-      </div>
     </div>
   );
 }
 
-
 function Loading() {
-  return <div style={{backgroundColor: "red"}}>
-    <h2>🌀 Loading...</h2>
-  </div>;
+  return (
+    <div style={{ backgroundColor: "red" }}>
+      <h2>🌀 Loading...</h2>
+    </div>
+  );
 }

@@ -1,7 +1,7 @@
 .metas-container {
   display: flex;
   justify-content: center;
-  width: 100vw;
+  max-width: 100vw;
   min-height: 80vh;
   padding: 16px;
 }
@@ -67,4 +67,12 @@
   width: 50px;
   border-radius: 50%;
   margin: 14px 0;
+}
+
+.metas-table-row {
+  border-bottom: 1px solid rgb(110, 110, 110);
+}
+
+.metas-table-row th {
+  padding: 10px;
 }

@@ -71,7 +71,7 @@ export default function Panel() {
         </div>
         {data.length > 0 ? (
           data.map((item) => (
-            <Link to="/taks" onClick={() => handleClick(item._id)}>
+            <Link to="/meta-dashboard" onClick={() => handleClick(item._id)}>
               <div className="row-container hover">
                 <div className="row">
                   <div className="cell hover">{item.nombre}</div>
