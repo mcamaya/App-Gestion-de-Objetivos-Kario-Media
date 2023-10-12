@@ -8,7 +8,7 @@ import isAdminRole from "../middlewares/isAdminRole.js";
 const router = Router();
 
 router.get("/", service.getMetas);
-router.delete("/:id", service.deleteMetas);
+router.delete("/:id", service.deleteMeta);
 
 
 router.get(

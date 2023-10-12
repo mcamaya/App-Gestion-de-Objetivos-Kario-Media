@@ -90,20 +90,9 @@ export default function Panel() {
     const handleButtonClick = (e, metaId) => {
       e.preventDefault();
     
-      const token = localStorage.getItem("x-auth-token");
-    
-      if (!token) {
-        console.error("No se encontró un token de autenticación.");
-        // Puedes manejar la falta de token de autenticación aquí.
-        return;
-      }
-    
       if (window.confirm("¿Estás seguro de que deseas borrar esta meta?")) {
         fetch(`${urlApi}/metas/${metaId}`, {
           method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         })
           .then((response) => {
             if (response.ok) {

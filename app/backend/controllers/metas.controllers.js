@@ -29,19 +29,21 @@ export const getMetas = async (req, res, next) => {
 };
 
 
-export const deleteMetas = async (req, res, next) => {
+export const deleteMeta = async (req, res, next) => {
   try {
-    const condition = { status: "completado" };
-    const result = await metas.deleteMany(condition);
-    if (result.deletedCount > 0) {
-      res.status(200).json({ message: `${result.deletedCount} documentos eliminados` });
+    const oid = new ObjectId(req.params.id);
+    const result = await metas.deleteOne({ _id: oid });
+    console.log(result)
+    if (result.deletedCount === 1) {
+      res.status(200).json({ message: 'Meta eliminada con éxito' });
     } else {
-      res.status(404).json({ message: 'No se encontraron documentos para eliminar' });
+      res.status(404).json({ message: 'No se encontró la meta para eliminar' });
     }
   } catch (err) {
     next(err);
   }
 };
+
 
 
 
