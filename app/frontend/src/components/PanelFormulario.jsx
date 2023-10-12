@@ -85,6 +85,13 @@ const Formulario = () => {
       return;
     }
   
+    // Verificar si la FechaInicio es mayor que la FechaFinal
+    if (new Date(fechaInicio) > new Date(fechaFinal)) {
+      Swal.fire("Fechas Incongruentes", "La Fecha de Inicio NO debe ser mayor que la Fecha de Finalización.", "error");
+      return;
+    }
+  
+    // Continuar con el proceso de guardado
     swalRef.current = Swal.fire({
       title: "Guardando...",
       icon: "success",
@@ -98,6 +105,7 @@ const Formulario = () => {
       },
     });
   };
+  
   
   return (
     <div className="form-create-container">
