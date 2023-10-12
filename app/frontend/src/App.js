@@ -8,6 +8,7 @@ import Panel from './components/panel.jsx';
 import MetaDashboard from './components/metaDashboard';
 import PanelFormulario from "./components/PanelFormulario.jsx";
 import AñadirTareas from './components/añadirTareas';
+import NotFound from './components/notFound';
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
               </Route>
               <Route exact path="/meta-dashboard">
                 <MetaDashboard />
+              </Route>
+              <Route exact path="*">
+                <NotFound />
               </Route>
             </Switch>
           </Route>
