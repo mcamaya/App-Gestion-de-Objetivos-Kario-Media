@@ -47,11 +47,11 @@ export default function Panel() {
     const textDelete = document.querySelector('#text-delete')
     const textInfo = document.querySelector('#text-info')
     const textInfoDelete = document.querySelector('#text-info-delete')
-    const btnCrearMetas = document.querySelector('#crear-metas')
-    const btnCancel = document.querySelector('#cancelar-borrar')
-    const linkBorrar = document.querySelector('#remover')
+    const btnCrearMetas = document.querySelector("#crear-metas");
+    const btnCancel = document.querySelector("#cancelar-borrar");
+    const iconTrashElements = document.querySelectorAll('.icon-trash')
+    const cellBorrarElements = document.querySelector('.cell-borrar')
 
-    
         if (textHome.classList.contains('no-ver')) {
           textHome.classList.replace('no-ver', 'ver')
           textDelete.classList.replace('ver', 'no-ver')
@@ -62,10 +62,18 @@ export default function Panel() {
           textInfoDelete.classList.replace('ver', 'no-ver')
         }
 
-        if (btnCrearMetas.classList.contains('no-ver')){
-          btnCrearMetas.classList.replace('no-ver', 'ver')
-          btnCancel.classList.replace('ver', 'no-ver')
+        if (btnCrearMetas.classList.contains("no-ver")) {
+          btnCrearMetas.classList.replace("no-ver", "ver");
+          btnCancel.classList.replace("ver", "no-ver");
         }
+        
+        if (cellBorrarElements.classList.contains("ver")) {
+          cellBorrarElements.classList.replace("ver", "no-ver")
+        }
+    
+        iconTrashElements.forEach((element) => {
+          element.classList.replace("ver", "no-ver");
+        });
     }
 
   return (
@@ -88,7 +96,7 @@ export default function Panel() {
       <div className="table">
         <div className="row-container">
           <div className="row-header indice">
-            <div className="cell">Nombre</div>
+            <div className="cell ver">Nombre</div>
             <div className="cell">Descripción</div>
             <div className="cell">Dificultad</div>
             <div className="cell">Fecha de Inicio</div>
@@ -96,6 +104,7 @@ export default function Panel() {
             <div className="cell">Metodología</div>
             <div className="cell">Cumplimiento</div>
             <div className="cell">Área</div>
+            <div className="cell no-ver cell-borrar">Borrar</div>
           </div>
         </div>
         {data.length > 0 ? (
@@ -115,11 +124,11 @@ export default function Panel() {
                     <h4
                       style={{
                         backgroundImage:
-                          calculatePercentage(item.tareas) > 80
-                            ? `url(${completa})`
-                            : calculatePercentage(item.tareas) > 40
-                            ? `url(${proceso})`
-                            : `url(${incompleta})`
+                        calculatePercentage(item.tareas) > 80
+                        ? `url(${completa})`
+                        : calculatePercentage(item.tareas) > 40
+                        ? `url(${proceso})`
+                        : `url(${incompleta})`
                       }}
                       className="background-container"
                     >
@@ -127,6 +136,7 @@ export default function Panel() {
                     </h4>
                   </div>
                   <div className="cell">{item.area[0].nombre}</div>
+                  <div className="cell no-ver icon-trash"><button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i></button></div>
                 </div>
               </div>
             </Link> 

@@ -15,7 +15,7 @@ export default function Navbar() {
   const imagen = localStorage.getItem("userImage");
   const history = useHistory();
   const [disableLinks, setDisableLinks] = useState(false);
-  const [selectedItemId, setSelectedItemId] = useState(null);
+  const [selectedItemId, setSelectedItemId] = useState(false);
 
   const displayBorrar = () => {
     const textHome = document.querySelector("#text-home");
@@ -24,12 +24,14 @@ export default function Navbar() {
     const textInfoDelete = document.querySelector("#text-info-delete");
     const btnCrearMetas = document.querySelector("#crear-metas");
     const btnCancel = document.querySelector("#cancelar-borrar");
+    const iconTrashElements = document.querySelectorAll('.icon-trash')
+    const cellBorrarElements = document.querySelector('.cell-borrar')
 
     if (textHome.classList.contains("ver")) {
       textHome.classList.replace("ver", "no-ver");
       textDelete.classList.replace("no-ver", "ver");
     } 
-
+    
     if (textInfo.classList.contains("ver")) {
       textInfo.classList.replace("ver", "no-ver");
       textInfoDelete.classList.replace("no-ver", "ver");
@@ -38,7 +40,15 @@ export default function Navbar() {
     if (btnCrearMetas.classList.contains("ver")) {
       btnCrearMetas.classList.replace("ver", "no-ver");
       btnCancel.classList.replace("no-ver", "ver");
-    } 
+    }
+    
+    if (cellBorrarElements.classList.contains("no-ver")) {
+      cellBorrarElements.classList.replace("no-ver", "ver")
+    }
+
+    iconTrashElements.forEach((element) => {
+      element.classList.replace("no-ver", "ver");
+    });
   };
 
   const handleEliminarClick = () => {
