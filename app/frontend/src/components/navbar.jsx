@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import logo from "../assets/img/kario.png";
 import mas from "../assets/img/mas.svg";
@@ -14,7 +14,9 @@ import "../components/css/nav.css";
 export default function Navbar() {
   const imagen = localStorage.getItem("userImage");
   const history = useHistory();
-  
+  const [disableLinks, setDisableLinks] = useState(false);
+  const [selectedItemId, setSelectedItemId] = useState(null);
+
   const displayBorrar = () => {
     const textHome = document.querySelector("#text-home");
     const textDelete = document.querySelector("#text-delete");
@@ -22,38 +24,33 @@ export default function Navbar() {
     const textInfoDelete = document.querySelector("#text-info-delete");
     const btnCrearMetas = document.querySelector("#crear-metas");
     const btnCancel = document.querySelector("#cancelar-borrar");
-    const linkBorrar = document.querySelector("#remover");
 
     if (textHome.classList.contains("ver")) {
       textHome.classList.replace("ver", "no-ver");
       textDelete.classList.replace("no-ver", "ver");
-    } else {
-      textHome.classList.replace("no-ver", "ver");
-      textDelete.classList.replace("ver", "no-ver");
-    }
+    } 
 
     if (textInfo.classList.contains("ver")) {
       textInfo.classList.replace("ver", "no-ver");
       textInfoDelete.classList.replace("no-ver", "ver");
-    } else {
-      textInfo.classList.replace("no-ver", "ver");
-      textInfoDelete.classList.replace("ver", "no-ver");
     }
 
     if (btnCrearMetas.classList.contains("ver")) {
       btnCrearMetas.classList.replace("ver", "no-ver");
       btnCancel.classList.replace("no-ver", "ver");
-    } else {
-      btnCrearMetas.classList.replace("no-ver", "ver");
-      btnCancel.classList.replace("ver", "no-ver");
-    }
+    } 
   };
 
   const handleEliminarClick = () => {
     if (history.location.pathname === "/home") {
       // Coloca aquí la lógica que deseas ejecutar cuando la ruta es "/home"
       displayBorrar();
+      setDisableLinks(true); // Deshabilita los enlaces
     }
+  };
+
+  const handleLinkClick = (_id) => {
+    setSelectedItemId(_id);
   };
 
   return (
@@ -75,7 +72,7 @@ export default function Navbar() {
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <a
-                  className="nav-link active grup-a d-flex align-items-center gap-2"
+                  className={`nav-link active grup-a d-flex align-items-center gap-2 ${disableLinks ? "disabled-link" : ""}`}
                   aria-current="page"
                   href="/home/formulario"
                 >
@@ -84,7 +81,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item" onClick={() => window.location.reload()}>
                 <a
-                  className="nav-link active grup-a d-flex align-items-center gap-2"
+                  className={`nav-link active grup-a d-flex align-items-center gap-2 ${disableLinks ? "disabled-link" : ""}`}
                   aria-current="page"
                   href="#"
                 >
@@ -93,7 +90,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <a
-                  className="nav-link active grup-a d-flex align-items-center gap-2"
+                  className={`nav-link active grup-a d-flex align-items-center gap-2 ${disableLinks ? "disabled-link" : ""}`}
                   aria-current="page"
                   href="#"
                   onClick={handleEliminarClick}
@@ -103,7 +100,7 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <a
-                  className="nav-link active grup-a"
+                  className={`nav-link active grup-a ${disableLinks ? "disabled-link" : ""}`}
                   aria-current="page"
                   href="/home"
                 >
@@ -112,18 +109,20 @@ export default function Navbar() {
               </li>
               <li className="nav-item">
                 <a
-                  className="nav-link active grup-a d-flex align-items-center gap-2"
+                  className={`nav-link active grup-a d-flex align-items-center gap-2 ${disableLinks ? "disabled-link" : ""}`}
                   aria-current="page"
                   href="#"
+                  onClick={() => handleLinkClick(1)} // Puedes pasar el _id deseado aquí
                 >
                   <img className="nav-logo" src={repor} alt="" /> Reportar
                 </a>
               </li>
               <li className="nav-item">
                 <a
-                  className="nav-link active grup-a d-flex align-items-center gap-2"
+                  className={`nav-link active grup-a d-flex align-items-center gap-2 ${disableLinks ? "disabled-link" : ""}`}
                   aria-current="page"
                   href="#"
+                  onClick={() => handleLinkClick(2)} // Puedes pasar el _id deseado aquí
                 >
                   <img className="nav-logo" src={ayuda} alt="" /> Ayuda
                 </a>

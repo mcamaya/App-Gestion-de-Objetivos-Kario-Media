@@ -52,26 +52,17 @@ export default function Panel() {
     const linkBorrar = document.querySelector('#remover')
 
     
-        if (textHome.classList.contains('ver')) {
-          textHome.classList.replace('ver', 'no-ver')
-          textDelete.classList.replace('no-ver', 'ver')
-        } else {
+        if (textHome.classList.contains('no-ver')) {
           textHome.classList.replace('no-ver', 'ver')
           textDelete.classList.replace('ver', 'no-ver')
         }
 
-        if (textInfo.classList.contains('ver')) {
-          textInfo.classList.replace('ver', 'no-ver')
-          textInfoDelete.classList.replace('no-ver', 'ver')
-        } else {
+        if (textInfo.classList.contains('no-ver')) {
           textInfo.classList.replace('no-ver', 'ver')
           textInfoDelete.classList.replace('ver', 'no-ver')
         }
 
-        if (btnCrearMetas.classList.contains('ver')) {
-          btnCrearMetas.classList.replace('ver', 'no-ver')
-          btnCancel.classList.replace('no-ver', 'ver')
-        } else {
+        if (btnCrearMetas.classList.contains('no-ver')){
           btnCrearMetas.classList.replace('no-ver', 'ver')
           btnCancel.classList.replace('ver', 'no-ver')
         }
@@ -138,7 +129,7 @@ export default function Panel() {
                   <div className="cell">{item.area[0].nombre}</div>
                 </div>
               </div>
-            </Link>
+            </Link> 
           ))
         ) : (
           <p>Cargando datos...</p>
@@ -148,7 +139,9 @@ export default function Panel() {
           <Link to="/home/formulario">
             <button id='crear-metas' className="ver"> Añadir Elementos </button>
           </Link>
+          <Link to="/home">
             <button id='cancelar-borrar' className="no-ver" onClick={displayNormal}> Cancelar </button>
+          </Link>
         </div>
     </div>
   );

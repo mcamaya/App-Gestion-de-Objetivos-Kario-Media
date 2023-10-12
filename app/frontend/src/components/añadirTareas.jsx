@@ -1,4 +1,4 @@
-import React, { cloneElement, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import urlApi from "../data/urlApi";
 
@@ -11,7 +11,7 @@ export default function AñadirTareas({ addNewTask, closeModal }) {
   const [titulo, setTitulo] = useState("");
   const [instrucciones, setInstrucciones] = useState("");
   const [tiempoHoras, setTiempoHoras] = useState("");
-  const [integrantes, setIntegrantes] = useState([]);
+  const [integrantes, setIntegrantes] = useState(""); // Cambio aquí a cadena vacía
 
   useEffect(() => {
     if (!token) return history.push("/");
@@ -32,7 +32,7 @@ export default function AñadirTareas({ addNewTask, closeModal }) {
     };
     console.log(newRegistro);
     addNewTask(newRegistro);
-  };
+  }
 
   return (
     <div className="fomulario_centrado">
@@ -88,7 +88,7 @@ export default function AñadirTareas({ addNewTask, closeModal }) {
       </form>
       <div className="centradoBoton">
         <button className="volver-button" onClick={() => closeModal()}>
-          Volver
+          Cancelar
         </button>
         <button className="añadir-button" onClick={(e) => handlePostTarea()}>
           Añadir Tarea
