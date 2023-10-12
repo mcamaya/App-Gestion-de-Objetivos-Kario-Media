@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
+import urlApi from "../data/urlApi.js";
 import logo from "../assets/img/kario.png";
 import mas from "../assets/img/mas.svg";
 import refres from "../assets/img/res.svg";
@@ -158,7 +159,8 @@ export default function Navbar() {
                 <a
                   className={`nav-link active grup-a d-flex align-items-center gap-2 ${disableLinks ? "disabled-link" : ""}`}
                   aria-current="page"
-                  href="#"
+                  href={`${urlApi}/api-doc`}
+                  target="_blank"
                   onClick={() => handleLinkClick(2)} // Puedes pasar el _id deseado aquí
                 >
                   <img className="nav-logo" src={ayuda} alt="" /> Ayuda
