@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import logo from "../assets/img/kario.png";
 import mas from "../assets/img/mas.svg";
@@ -10,13 +10,21 @@ import campana from "../assets/img/campana.svg";
 import ajustes from "../assets/img/ajustes.svg";
 
 import "../components/css/nav.css";
+import LogoutBox from "./logout.jsx";
 
 export default function Navbar() {
   const imagen = localStorage.getItem("userImage");
   const history = useHistory();
   const [disableLinks, setDisableLinks] = useState(false);
   const [selectedItemId, setSelectedItemId] = useState(false);
+  const [showLogoutBox, setShowLogoutBox] = useState(false);
+  const logoutBoxRef = useRef(null);
 
+  const handleLogout = () => {
+    localStorage.clear();
+    history.push("/");
+  };
+  
   const displayBorrar = () => {
     const textHome = document.querySelector("#text-home");
     const textDelete = document.querySelector("#text-delete");
@@ -24,14 +32,14 @@ export default function Navbar() {
     const textInfoDelete = document.querySelector("#text-info-delete");
     const btnCrearMetas = document.querySelector("#crear-metas");
     const btnCancel = document.querySelector("#cancelar-borrar");
-    const iconTrashElements = document.querySelectorAll('.icon-trash')
-    const cellBorrarElements = document.querySelector('.cell-borrar')
+    const iconTrashElements = document.querySelectorAll('.icon-trash');
+    const cellBorrarElements = document.querySelector('.cell-borrar');
 
     if (textHome.classList.contains("ver")) {
       textHome.classList.replace("ver", "no-ver");
       textDelete.classList.replace("no-ver", "ver");
-    } 
-    
+    }
+
     if (textInfo.classList.contains("ver")) {
       textInfo.classList.replace("ver", "no-ver");
       textInfoDelete.classList.replace("no-ver", "ver");
@@ -41,9 +49,9 @@ export default function Navbar() {
       btnCrearMetas.classList.replace("ver", "no-ver");
       btnCancel.classList.replace("no-ver", "ver");
     }
-    
+
     if (cellBorrarElements.classList.contains("no-ver")) {
-      cellBorrarElements.classList.replace("no-ver", "ver")
+      cellBorrarElements.classList.replace("no-ver", "ver");
     }
 
     iconTrashElements.forEach((element) => {
@@ -53,14 +61,23 @@ export default function Navbar() {
 
   const handleEliminarClick = () => {
     if (history.location.pathname === "/home") {
-      // Coloca aquí la lógica que deseas ejecutar cuando la ruta es "/home"
       displayBorrar();
-      setDisableLinks(true); // Deshabilita los enlaces
+      setDisableLinks(true);
     }
   };
 
   const handleLinkClick = (_id) => {
     setSelectedItemId(_id);
+  };
+
+  const handleImageClick = () => {
+    if (showLogoutBox) {
+      // Si el cuadro de logout está abierto, ciérralo
+      setShowLogoutBox(false);
+    } else {
+      // Si el cuadro de logout está cerrado, ábrelo
+      setShowLogoutBox(true);
+    }
   };
 
   return (
@@ -151,7 +168,7 @@ export default function Navbar() {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">
+                <a className="nav-link active" aria-current="page" href="#" onClick={handleImageClick}>
                   <img className="imagen-nav" src={`${imagen}`} alt="" />
                 </a>
               </li>
@@ -159,6 +176,11 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+      {showLogoutBox && (
+        <div ref={logoutBoxRef}>
+          <LogoutBox onClose={() => setShowLogoutBox(false)} onLogout={handleLogout} />
+        </div>
+      )}
       <hr />
     </div>
   );
