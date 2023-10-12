@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";  
 import "../components/css/panel.css";
 import urlApi from "../data/urlApi";
 
@@ -51,6 +52,7 @@ export default function Panel() {
     const btnCancel = document.querySelector("#cancelar-borrar");
     const iconTrashElements = document.querySelectorAll('.icon-trash')
     const cellBorrarElements = document.querySelector('.cell-borrar')
+    const padreHoverElements = document.querySelectorAll('.padre-tabla');
 
         if (textHome.classList.contains('no-ver')) {
           textHome.classList.replace('no-ver', 'ver')
@@ -74,12 +76,53 @@ export default function Panel() {
         iconTrashElements.forEach((element) => {
           element.classList.replace("ver", "no-ver");
         });
+
+
+        
+        padreHoverElements.forEach((element) => {
+          element.classList.replace("hover-eliminar","padre-tabla");
+        });
+
+        window.location.reload();
+        
     }
 
-    const handleButtonClick = (e) => {
+    const handleButtonClick = (e, metaId) => {
       e.preventDefault();
-      alert("Botón presionado");
+    
+      const token = localStorage.getItem("x-auth-token");
+    
+      if (!token) {
+        console.error("No se encontró un token de autenticación.");
+        // Puedes manejar la falta de token de autenticación aquí.
+        return;
+      }
+    
+      if (window.confirm("¿Estás seguro de que deseas borrar esta meta?")) {
+        fetch(`${urlApi}/metas/${metaId}`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+          .then((response) => {
+            if (response.ok) {
+              // La meta se eliminó con éxito.
+              console.log("Meta eliminada con éxito");
+              // Realiza alguna acción adicional si la eliminación fue exitosa, como recargar la lista de metas.
+              window.location.reload();
+            } else {
+              console.error("Error al eliminar la meta.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error al eliminar la meta:", error);
+          });
+      }
     };
+    
+    
+
 
   return (
     <div style={{ width: "100%" }}>
@@ -115,7 +158,7 @@ export default function Panel() {
         {data.length > 0 ? (
           data.map((item, index) => (
             <Link id='remover' className="mapped-item" to="/meta-dashboard" onClick={() => handleClick(item._id)}  key={index}>
-              <div className="row-container hover">
+              <div id="padre-tabla" className="row-container hover padre-tabla">
                 <div className="row">
                   <div className="cell hover">{item.nombre}</div>
                   <div className="cell tex-descrip">
@@ -141,7 +184,7 @@ export default function Panel() {
                     </h4>
                   </div>
                   <div className="cell">{item.area[0].nombre}</div>
-                  <div className="cell no-ver icon-trash"><button type="button" className="btn btn-danger" onClick={(e) => { handleClick(item._id); handleButtonClick(e); }}><i className="bi bi-trash3"></i></button></div>
+                  <div className="cell no-ver icon-trash"><button type="button" className="btn btn-danger" onClick={(e) => { handleClick(item._id); handleButtonClick(e, item._id); }}><i className="bi bi-trash3"></i></button></div>
                 </div>
               </div>
             </Link> 

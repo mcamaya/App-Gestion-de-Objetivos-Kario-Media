@@ -12,6 +12,8 @@ import ajustes from "../assets/img/ajustes.svg";
 import "../components/css/nav.css";
 import LogoutBox from "./logout.jsx";
 
+import Panel from "./panel";
+
 export default function Navbar() {
   const imagen = localStorage.getItem("userImage");
   const history = useHistory();
@@ -24,7 +26,7 @@ export default function Navbar() {
     localStorage.clear();
     history.push("/");
   };
-  
+
   const displayBorrar = () => {
     const textHome = document.querySelector("#text-home");
     const textDelete = document.querySelector("#text-delete");
@@ -34,6 +36,7 @@ export default function Navbar() {
     const btnCancel = document.querySelector("#cancelar-borrar");
     const iconTrashElements = document.querySelectorAll('.icon-trash');
     const cellBorrarElements = document.querySelector('.cell-borrar');
+    const padreHoverElements = document.querySelectorAll('.padre-tabla');
 
     if (textHome.classList.contains("ver")) {
       textHome.classList.replace("ver", "no-ver");
@@ -57,6 +60,12 @@ export default function Navbar() {
     iconTrashElements.forEach((element) => {
       element.classList.replace("no-ver", "ver");
     });
+
+
+    padreHoverElements.forEach((element) => {
+      element.classList.replace("padre-tabla","hover-eliminar");
+    });
+
   };
 
   const handleEliminarClick = () => {
@@ -74,6 +83,7 @@ export default function Navbar() {
     if (showLogoutBox) {
       // Si el cuadro de logout está abierto, ciérralo
       setShowLogoutBox(false);
+     
     } else {
       // Si el cuadro de logout está cerrado, ábrelo
       setShowLogoutBox(true);

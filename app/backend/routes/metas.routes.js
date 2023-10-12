@@ -8,6 +8,9 @@ import isAdminRole from "../middlewares/isAdminRole.js";
 const router = Router();
 
 router.get("/", service.getMetas);
+router.delete("/:id", service.deleteMetas);
+
+
 router.get(
   "/porcentaje/:id",
   [verifyToken, validateSchema(schemas.getMetasSchema, "params")],
@@ -40,5 +43,8 @@ router.patch(
   [verifyToken, isAdminRole, validateSchema(schemas.updateMetasSchema, "body")],
   service.editarMeta
 );
+
+
+
 
 export default router;
