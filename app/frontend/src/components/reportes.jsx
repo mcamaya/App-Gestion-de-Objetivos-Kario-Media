@@ -1,9 +1,56 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { useHistory } from "react-router-dom";
+import urlApi from "../data/urlApi.js";
 import "./css/reportes.css";
 
 export default function Reportes() {
+  const history = useHistory();
+  const usuario = localStorage.getItem("ID");
+  const token = localStorage.getItem("x-auth-token");
+
   const [asunto, setAsunto] = useState("");
   const [especifico, setEspecifico] = useState("");
+
+  useEffect(() => {
+    if (!token) history.push("/");
+  }, []);
+
+  const crearReclamo = () => {
+    if (asunto == "" || especifico == "") {
+      Swal.fire("Campos incompletos", "Por favor, complete todos los campos.", "error");
+      return;
+    }
+
+    const nuevo = {
+      asunto,
+      especifico,
+      usuario,
+    };
+    fetch(`${urlApi}/reportes`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": token,
+      },
+      body: JSON.stringify(nuevo),
+    })
+      .then((res) => res.json)
+      .then(() =>
+        Swal.fire({
+          position: "center",
+          icon: "success",
+          title: "Tu reporte ha sido enviado con éxito",
+          showConfirmButton: false,
+          timer: 1500,
+        })
+      )
+      .then(() => {
+        setAsunto("");
+        setEspecifico("");
+      })
+      .catch((err) => alert(err));
+  };
 
   return (
     <div className="reportes-container">
@@ -13,6 +60,7 @@ export default function Reportes() {
           <div className="input-form-container tareas">
             <label htmlFor="asunto">Asunto:</label>
             <input
+              required
               type="text"
               id="asunto"
               value={asunto}
@@ -24,6 +72,7 @@ export default function Reportes() {
               Sé un poco más específico al respecto:
             </label>
             <textarea
+              required
               rows={7}
               id="especifico"
               value={especifico}
@@ -32,7 +81,9 @@ export default function Reportes() {
           </div>
         </div>
       </form>
-      <button className="reportes-btn">Enviar</button>
+      <button className="reportes-btn" onClick={() => crearReclamo()}>
+        Enviar
+      </button>
     </div>
   );
 }

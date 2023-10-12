@@ -83,7 +83,7 @@ export default function Navbar() {
     if (showLogoutBox) {
       // Si el cuadro de logout está abierto, ciérralo
       setShowLogoutBox(false);
-     
+    
     } else {
       // Si el cuadro de logout está cerrado, ábrelo
       setShowLogoutBox(true);
@@ -148,7 +148,7 @@ export default function Navbar() {
                 <a
                   className={`nav-link active grup-a d-flex align-items-center gap-2 ${disableLinks ? "disabled-link" : ""}`}
                   aria-current="page"
-                  href="#"
+                  href="/reportes"
                   onClick={() => handleLinkClick(1)} // Puedes pasar el _id deseado aquí
                 >
                   <img className="nav-logo" src={repor} alt="" /> Reportar
