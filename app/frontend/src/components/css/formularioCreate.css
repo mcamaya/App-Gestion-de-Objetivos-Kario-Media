@@ -52,6 +52,7 @@
 
 .input-form-container select{
     height: 35px;
+    padding: 0 8px;
 }
 
 .input-form-container textarea{
