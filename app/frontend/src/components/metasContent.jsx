@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaTrashAlt } from "react-icons/fa";
 import formatDate from "../helpers/dateFormating";
 import AñadirTareas from "./añadirTareas";
+import "./css/añadirTareas.css";
 
 export default function MetasContent({
   apiData,
@@ -12,9 +13,22 @@ export default function MetasContent({
   addNewTask,
 }) {
   const [isDeleting, setIsDeleting] = useState(false);
+  const [isAdding, setIsAdding] = useState(false);
+  const [modalShows, setModalShows] = useState();
+  const [switchModal, setSwitchModal] = useState(false);
+
+  const toggleModal = () => {
+    if (switchModal === false) {
+      setModalShows({ display: "flex" });
+      setSwitchModal(true);
+    } else if (switchModal === true) {
+      setModalShows({ display: "none" });
+      setSwitchModal(false);
+    }
+  };
 
   return (
-    <>
+    <div className={`metas-container`}>
       <div className="metas-main-content">
         <div className="meta-title">
           <h2>{apiData.nombre}</h2>
@@ -68,7 +82,7 @@ export default function MetasContent({
                         deletingTask(tarea._id);
                       }}
                     >
-                      {/* <FaTrashAlt /> */}
+                      <FaTrashAlt />
                     </button>
                   </td>
                 </tr>
@@ -83,20 +97,19 @@ export default function MetasContent({
           <h6>{apiData.descripcion}</h6>
         </div>
 
-        <div className="aside-form">
-          <AñadirTareas addNewTask={addNewTask} />
-        </div>
-
-        {/* <Link to="/meta-dashboard/añadir"> */}
-        
-
         <button
           className="eliminar-button"
           onClick={() => setIsDeleting(!isDeleting)}
         >
           Eliminar Tareas
         </button>
+        <button className="añadir-button" onClick={toggleModal}>
+          Añadir Tareas
+        </button>
       </div>
-    </>
+      <div className="aside-form" style={modalShows}>
+        <AñadirTareas addNewTask={addNewTask} closeModal={toggleModal} />
+      </div>
+    </div>
   );
 }

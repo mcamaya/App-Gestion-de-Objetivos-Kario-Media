@@ -4,6 +4,7 @@
   max-width: 100vw;
   min-height: 80vh;
   padding: 16px;
+  margin: 0;
 }
 
 .metas-main-content {
@@ -36,7 +37,7 @@
   border: 3px solid #91ff80;
   width: 100%;
   height: 50px;
-  margin-top: 20px;
+  margin:  15px 0;
   font-weight: 600;
   color: #91ff80;
   background-color: #ffffff;
@@ -129,6 +130,3 @@
   width: 25px;
 }
 
-.add-tasks-container > * {
-  position: absolute;
-}

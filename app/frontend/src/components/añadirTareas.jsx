@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { cloneElement, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import urlApi from "../data/urlApi";
-import "./css/añadirTareas.css";
 
-export default function AñadirTareas({ addNewTask }) {
+export default function AñadirTareas({ addNewTask, closeModal }) {
   const history = useHistory();
   const metaId = localStorage.getItem("IDMeta");
   const token = localStorage.getItem("x-auth-token");
@@ -29,62 +28,72 @@ export default function AñadirTareas({ addNewTask }) {
       titulo,
       instrucciones,
       tiempoHoras,
-      integrantes: [integrantes]
-    }
+      integrantes: [integrantes],
+    };
     console.log(newRegistro);
     addNewTask(newRegistro);
   };
 
   return (
-    <div>
-      <form>
-        <div className="input-form-container2">
-          <label htmlFor="titulo">Titulo</label>
-          <input
-            type="text"
-            id="titulo"
-            value={titulo}
-            onChange={(e) => setTitulo(e.target.value)}
-          />
+    <div className="fomulario_centrado">
+      <h3>Añadir nueva tarea</h3>
+      <form className="form-container">
+        <div className="inputs-derecha">
+          <div className="input-form-container tareas">
+            <label htmlFor="titulo">Titulo</label>
+            <input
+              type="text"
+              id="titulo"
+              value={titulo}
+              onChange={(e) => setTitulo(e.target.value)}
+            />
+          </div>
+          <div className="input-form-container tareas">
+            <label htmlFor="instrucciones">Instrucciones</label>
+            <textarea
+              id="instrucciones"
+              name={instrucciones}
+              onChange={(e) => setInstrucciones(e.target.value)}
+            ></textarea>
+          </div>
         </div>
-        <div className="input-form-container2">
-          <label htmlFor="instrucciones">Instrucciones</label>
-          <textarea
-            id="instrucciones"
-            name={instrucciones}
-            onChange={(e) => setInstrucciones(e.target.value)}
-          ></textarea>
-        </div>
-        <div className="input-form-container2">
-          <label htmlFor="tiempoHoras">Tiempo Estimado en Horas</label>
-          <input
-            type="number"
-            id="tiempoHoras"
-            value={tiempoHoras}
-            onChange={(e) => setTiempoHoras(e.target.value)}
-          />
-        </div>
-        <div className="input-form-container2">
-          <label htmlFor="integrantes">Responsable</label>
-          <select
-            id="integrantes"
-            value={integrantes}
-            onChange={(e) => setIntegrantes(e.target.value)}
-          >
-            <option value="" disabled>
-              Selecione la persona asignada
-            </option>
-            {dbUsers.map((user, index) => (
-              <option key={index} value={user._id}>
-                {user.nombre}
+        <div className="input-izquierda">
+          <div className="input-form-container tareas">
+            <label htmlFor="tiempoHoras">Tiempo Estimado en Horas</label>
+            <input
+              type="number"
+              id="tiempoHoras"
+              value={tiempoHoras}
+              onChange={(e) => setTiempoHoras(e.target.value)}
+            />
+          </div>
+          <div className="input-form-container tareas">
+            <label htmlFor="integrantes">Responsable</label>
+            <select
+              id="integrantes"
+              value={integrantes}
+              onChange={(e) => setIntegrantes(e.target.value)}
+            >
+              <option value="" disabled>
+                Selecione la persona asignada
               </option>
-            ))}
-          </select>
+              {dbUsers.map((user, index) => (
+                <option key={index} value={user._id}>
+                  {user.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </form>
+      <div className="centradoBoton">
+        <button className="volver-button" onClick={() => closeModal()}>
+          Volver
+        </button>
         <button className="añadir-button" onClick={(e) => handlePostTarea()}>
           Añadir Tarea
         </button>
+      </div>
     </div>
   );
 }
