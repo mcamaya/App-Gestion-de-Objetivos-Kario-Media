@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import Swal from "sweetalert2"; 
 import axios from "axios";  
 import "../components/css/panel.css";
 import urlApi from "../data/urlApi";
@@ -52,7 +53,7 @@ export default function Panel() {
     const btnCancel = document.querySelector("#cancelar-borrar");
     const iconTrashElements = document.querySelectorAll('.icon-trash')
     const cellBorrarElements = document.querySelector('.cell-borrar')
-    const padreHoverElements = document.querySelectorAll('.padre-tabla');
+    const padreHoverElements = document.querySelectorAll('.hover-rows');
 
         if (textHome.classList.contains('no-ver')) {
           textHome.classList.replace('no-ver', 'ver')
@@ -82,36 +83,43 @@ export default function Panel() {
         padreHoverElements.forEach((element) => {
           element.classList.replace("hover-eliminar","padre-tabla");
         });
-
-        window.location.reload();
-        
     }
 
     const handleButtonClick = (e, metaId) => {
       e.preventDefault();
-    
-      if (window.confirm("¿Estás seguro de que deseas borrar esta meta?")) {
-        fetch(`${urlApi}/metas/${metaId}`, {
-          method: "DELETE",
-        })
-          .then((response) => {
-            if (response.ok) {
-              // La meta se eliminó con éxito.
-              console.log("Meta eliminada con éxito");
-              // Realiza alguna acción adicional si la eliminación fue exitosa, como recargar la lista de metas.
-              window.location.reload();
-            } else {
-              console.error("Error al eliminar la meta.");
-            }
+  
+      // Usa Swal para confirmar la eliminación
+      Swal.fire({
+        title: "¿Estás seguro de que deseas eliminar esta meta?",
+        text: "No podrás recuperarla una vez borrada",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sí, eliminar",
+        cancelButtonText: "Cancelar",
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // Si el usuario confirmó, ejecuta la eliminación
+          fetch(`${urlApi}/metas/${metaId}`, {
+            method: "DELETE",
           })
-          .catch((error) => {
-            console.error("Error al eliminar la meta:", error);
-          });
-      }
+            .then((response) => {
+              if (response.ok) {
+                // Después de eliminar, muestra una notificación de éxito
+                Swal.fire("¡Eliminado con éxito!", "", "success");
+                setTimeout(() => {
+                  // Espera 2 segundos y luego recarga la página
+                  window.location.reload();
+                }, 1000);
+              } else {
+                console.error("Error al eliminar la meta.");
+              }
+            })
+            .catch((error) => {
+              console.error("Error al eliminar la meta:", error);
+            });
+        }
+      });
     };
-    
-    
-
 
   return (
     <div style={{ width: "100%" }}>
@@ -147,7 +155,7 @@ export default function Panel() {
         {data.length > 0 ? (
           data.map((item, index) => (
             <Link id='remover' className="mapped-item" to="/meta-dashboard" onClick={() => handleClick(item._id)}  key={index}>
-              <div id="padre-tabla" className="row-container hover padre-tabla">
+              <div id="padre-tabla" className="hover-rows row-container hover padre-tabla ">
                 <div className="row">
                   <div className="cell hover">{item.nombre}</div>
                   <div className="cell tex-descrip">

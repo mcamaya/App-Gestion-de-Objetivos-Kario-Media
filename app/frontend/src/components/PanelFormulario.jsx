@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useHistory, Link } from "react-router-dom";
 import "./css/formularioCreate.css";
 import urlApi from "../data/urlApi.js";
+import Swal from "sweetalert2";
 
 const Formulario = () => {
   let history = useHistory();
@@ -17,6 +18,7 @@ const Formulario = () => {
   const [cumplimiento, Setcumplimiento] = useState("");
   const [area, Setarea] = useState("");
   const [areas, SetAreas] = useState([]);
+  const swalRef = useRef(null);
 
   useEffect(() => {
     if (!token) return history.push("/");
@@ -29,6 +31,18 @@ const Formulario = () => {
       SetAreas(extractedAreas);
     });
   }, []);
+
+  const isFormValid = () => {
+    return (
+      nombre.trim() !== "" &&
+      descripcion.trim() !== "" &&
+      dificultad !== "" &&
+      fechaInicio !== "" &&
+      fechaFinal !== "" &&
+      metodologia.trim() !== "" &&
+      area !== ""
+    );
+  };
 
   const postData = () => {
     const token = localStorage.getItem("x-auth-token");
@@ -57,15 +71,34 @@ const Formulario = () => {
         }
       )
       .then(() => {
+        // Redirecciona a "/home" después de guardar
         history.push("/home");
       });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    postData();
+  
+    // Verificar si el formulario es válido
+    if (!isFormValid()) {
+      Swal.fire("Campos incompletos", "Por favor, complete todos los campos.", "error");
+      return;
+    }
+  
+    swalRef.current = Swal.fire({
+      title: "Guardando...",
+      icon: "success",
+      didOpen: () => {
+        Swal.showLoading();
+      },
+      timer: 1000,
+      timerProgressBar: true,
+      willClose: () => {
+        postData();
+      },
+    });
   };
-
+  
   return (
     <div className="form-create-container">
       <div className="create-title-container">
@@ -156,7 +189,9 @@ const Formulario = () => {
             </div>
           </div>
           <div className="btn-submit-container">
-            <button type="submit">Guardar</button>
+            <button type="submit">
+              Guardar
+            </button>
             <Link to="/home">
               <button id="cancelar">Cancelar</button>
             </Link>

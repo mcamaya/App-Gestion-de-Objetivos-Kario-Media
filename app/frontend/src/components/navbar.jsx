@@ -36,7 +36,7 @@ export default function Navbar() {
     const btnCancel = document.querySelector("#cancelar-borrar");
     const iconTrashElements = document.querySelectorAll('.icon-trash');
     const cellBorrarElements = document.querySelector('.cell-borrar');
-    const padreHoverElements = document.querySelectorAll('.padre-tabla');
+    const padreHoverElements = document.querySelectorAll('.hover-rows');
 
     if (textHome.classList.contains("ver")) {
       textHome.classList.replace("ver", "no-ver");
