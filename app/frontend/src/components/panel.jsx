@@ -76,6 +76,11 @@ export default function Panel() {
         });
     }
 
+    const handleButtonClick = (e) => {
+      e.preventDefault();
+      alert("Botón presionado");
+    };
+
   return (
     <div style={{ width: "100%" }}>
       <div className="d-flex justify-content-center mt-3">
@@ -136,7 +141,7 @@ export default function Panel() {
                     </h4>
                   </div>
                   <div className="cell">{item.area[0].nombre}</div>
-                  <div className="cell no-ver icon-trash"><button type="button" class="btn btn-danger"><i class="bi bi-trash3"></i></button></div>
+                  <div className="cell no-ver icon-trash"><button type="button" className="btn btn-danger" onClick={(e) => { handleClick(item._id); handleButtonClick(e); }}><i className="bi bi-trash3"></i></button></div>
                 </div>
               </div>
             </Link> 
